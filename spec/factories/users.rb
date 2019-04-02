@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :user do
-    nickname { "MyString" }
-    uuid { "MyString" }
-    team { 1 }
+    nickname { "TheUser" }
   end
 end
