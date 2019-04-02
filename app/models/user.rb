@@ -8,7 +8,15 @@ class User < ApplicationRecord
   end
 
   def generate_team
-    # TODO: find smaller team and assign it to the user
-    self.team = :red
+    self.team ||= User.smallest_teams.sample
+  end
+
+  def self.smallest_teams
+    minimum_member_count = member_counts.values.min
+    member_counts.keys.select { |t| member_counts[t] == minimum_member_count }
+  end
+
+  def self.member_counts
+    teams.keys.each_with_object({}) { |t, result| result[t] = User.send(t).count }.symbolize_keys
   end
 end
