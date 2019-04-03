@@ -19,4 +19,9 @@ class User < ApplicationRecord
   def self.member_counts
     teams.keys.each_with_object({}) { |t, result| result[t] = User.send(t).count }.symbolize_keys
   end
+
+
+  def connect_to(user)
+    Connection.create(from: self, to: user)
+  end
 end
