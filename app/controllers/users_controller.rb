@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[show]
+
   def new
   end
 
   def show
-    @user = User.find_by!(uuid: session[:uuid])
   end
 
   def create
