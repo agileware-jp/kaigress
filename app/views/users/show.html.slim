@@ -1,3 +1,5 @@
+p = "Connection success" if @connection
+
 p Nickname: #{@user.nickname}
 p Team: #{@user.team}
 img src="https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=#{connect_url(uuid: @user.uuid)}"
