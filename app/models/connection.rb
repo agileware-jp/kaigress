@@ -6,6 +6,7 @@ class Connection < ApplicationRecord
 
   validate :from_and_to_are_different
   validate :same_connection_does_not_exist
+  validate :same_team
 
   private
 
@@ -15,5 +16,9 @@ class Connection < ApplicationRecord
 
   def same_connection_does_not_exist
     errors.add(:base, :invalid) if Connection.where(from: from, to: to).or(Connection.where(from: to, to: from)).exists?
+  end
+
+  def same_team
+    errors.add(:base, :invalid) if from.team != to.team
   end
 end

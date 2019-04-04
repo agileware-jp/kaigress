@@ -29,5 +29,20 @@ RSpec.describe Connection, type: :model do
         expect(other_user.connect_to(user)).to(be_falsey)
       end
     end
+
+    describe 'Restrict same team' do
+      subject { build :connection, from: user, to: other_user }
+      let(:user) { create :user, team: :red }
+      
+      context 'in same team' do
+        let(:other_user) { create :user, team: :red }
+        it { is_expected.to be_valid }
+      end
+
+      context 'in other team' do
+        let(:other_user) { create :user, team: :blue }
+        it { is_expected.to be_invalid }
+      end
+    end
   end
 end
