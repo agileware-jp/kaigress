@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
     let(:other_user) { create :user }
 
     it 'updates connection_token' do
-      expect { user.connect_to(other_user) }.to(change { user.reload.connection_token })
+      expect { user.connect_to(other_user) }.to(change { other_user.reload.connection_token })
     end
   end
 end

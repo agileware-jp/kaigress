@@ -17,12 +17,16 @@ class User < ApplicationRecord
   def connect_to(user)
     ActiveRecord::Base.transaction do
       Connection.create!(from: self, to: user)
-      generate_connection_token
-      save!
+      user.generate_connection_token
+      user.save!
       true
     rescue ActiveRecord::RecordInvalid
       false
     end
+  end
+
+  def generate_connection_token
+    self.connection_token = SecureRandom.uuid
   end
 
   private
@@ -33,9 +37,5 @@ class User < ApplicationRecord
 
   def generate_team
     self.team ||= User.smallest_teams.sample
-  end
-
-  def generate_connection_token
-    self.connection_token = SecureRandom.uuid
   end
 end
