@@ -10,7 +10,6 @@ AllCops:
     - config/**/*
     - node_modules/**/*
     - db/**/*
-    - spec/**/*
     - bin/**/*
     - vendor/**/*
 
@@ -25,6 +24,8 @@ Style/Documentation:
 
 Style/BlockDelimiters:
   EnforcedStyle: semantic
+  Exclude:
+    - 'spec/**/*'
 
 Metrics/LineLength:
   Max: 136

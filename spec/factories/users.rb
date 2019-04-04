@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
-    nickname { "TheUser" }
+    nickname { 'TheUser' }
   end
 end
