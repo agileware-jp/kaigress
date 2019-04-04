@@ -6,7 +6,7 @@ class ConnectionsController < ApplicationController
   def create
     other = User.find_by!(uuid: params[:uuid])
 
-    @connection = @user.connect_to(other)
+    @connection_success = @user.connect_to(other)
 
     render 'users/show'
   end
