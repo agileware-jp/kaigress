@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  before_create :generate_uuid, :generate_team
+  before_create :generate_uuid, :generate_team, :generate_connection_token
 
   enum team: %i[red green blue]
 
@@ -11,6 +11,10 @@ class User < ApplicationRecord
 
   def generate_team
     self.team ||= User.smallest_teams.sample
+  end
+
+  def generate_connection_token
+    self.generate_connection_token = SecureRandom.uuid
   end
 
   def self.smallest_teams
