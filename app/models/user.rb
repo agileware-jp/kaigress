@@ -29,6 +29,6 @@ class User < ApplicationRecord
   end
 
   def generate_connection_token
-    self.generate_connection_token = SecureRandom.uuid
+    self.connection_token = SecureRandom.uuid
   end
 end
