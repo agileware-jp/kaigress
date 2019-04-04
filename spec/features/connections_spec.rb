@@ -10,7 +10,7 @@ end
 
 RSpec.feature 'Connection', type: :feature do
   describe 'Connection status' do
-    let(:other_user) { create :user }
+    let(:other_user) { create :user, team: User.last.team }
 
     before do
       register

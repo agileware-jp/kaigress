@@ -39,9 +39,8 @@ RSpec.describe User, type: :model do
   end
 
   describe '#connect_to' do
-    # TODO: あとで同じteamでないとconnectできなくなるはず
-    let(:user) { create :user }
-    let(:other_user) { create :user }
+    let(:user) { create :user, team: :red }
+    let(:other_user) { create :user, team: :red }
 
     it 'updates connection_token' do
       expect { user.connect_to(other_user) }.to(change { other_user.reload.connection_token })
