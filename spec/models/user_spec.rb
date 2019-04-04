@@ -37,4 +37,14 @@ RSpec.describe User, type: :model do
       it { is_expected.to contain_exactly(:red, :green, :blue) }
     end
   end
+
+  describe '#connect_to' do
+    # TODO: あとで同じteamでないとconnectできなくなるはず
+    let(:user) { create :user }
+    let(:other_user) { create :user }
+
+    it 'updates connection_token' do
+      expect { user.connect_to(other_user) }.to(change { user.reload.connection_token })
+    end
+  end
 end
