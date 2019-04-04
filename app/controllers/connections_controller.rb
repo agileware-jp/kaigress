@@ -5,8 +5,12 @@ class ConnectionsController < ApplicationController
 
   def create
     other = User.find_by!(uuid: params[:uuid])
-
-    @connection_success = @user.connect_to(other)
+    # TODO: return reason for the error
+    @status_message = 'Connection failed'
+    if params[:connection_token] == other.connection_token &&
+       @user.connect_to(other)
+      @status_message = "Connected with #{other.nickname}"
+    end
 
     render 'users/show'
   end
