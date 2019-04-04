@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConnectionsController < ApplicationController
   before_action :set_user, only: %i[create]
 

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   before_create :generate_uuid, :generate_team
 
-  enum team: [:red, :green, :blue]
+  enum team: %i[red green blue]
 
   def generate_uuid
     self.uuid = SecureRandom.uuid

@@ -3,11 +3,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
 
-  def new
-  end
+  def new; end
 
-  def show
-  end
+  def show; end
 
   def create
     user = User.new(user_params)
