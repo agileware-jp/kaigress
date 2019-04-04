@@ -16,12 +16,12 @@ class User < ApplicationRecord
 
   def connect_to(user)
     ActiveRecord::Base.transaction do
-      Connection.create(from: self, to: user).persisted?.tap do |success|
-        if success
-          generate_connection_token
-          save
-        end
-      end
+      Connection.create!(from: self, to: user)
+      generate_connection_token
+      save!
+      true
+    rescue ActiveRecord::RecordInvalid
+      false
     end
   end
 
