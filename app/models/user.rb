@@ -23,6 +23,6 @@ class User < ApplicationRecord
   end
 
   def connect_to(user)
-    Connection.create(from: self, to: user)
+    Connection.create(from: self, to: user).persisted?
   end
 end
