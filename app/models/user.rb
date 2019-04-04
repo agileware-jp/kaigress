@@ -5,18 +5,6 @@ class User < ApplicationRecord
 
   enum team: %i[red green blue]
 
-  def generate_uuid
-    self.uuid = SecureRandom.uuid
-  end
-
-  def generate_team
-    self.team ||= User.smallest_teams.sample
-  end
-
-  def generate_connection_token
-    self.generate_connection_token = SecureRandom.uuid
-  end
-
   def self.smallest_teams
     minimum_member_count = member_counts.values.min
     member_counts.keys.select { |t| member_counts[t] == minimum_member_count }
@@ -28,5 +16,19 @@ class User < ApplicationRecord
 
   def connect_to(user)
     Connection.create(from: self, to: user).persisted?
+  end
+
+  private
+
+  def generate_uuid
+    self.uuid = SecureRandom.uuid
+  end
+
+  def generate_team
+    self.team ||= User.smallest_teams.sample
+  end
+
+  def generate_connection_token
+    self.generate_connection_token = SecureRandom.uuid
   end
 end
