@@ -9,7 +9,7 @@ class Connection < ApplicationRecord
   validate :same_team
 
   def as_json(_opts)
-    { from: from_id, to: to_id }
+    { from: from_id, to: to_id, width: 5 }
   end
 
   private
