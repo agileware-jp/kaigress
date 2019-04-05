@@ -5,15 +5,6 @@ class User < ApplicationRecord
 
   enum team: %i[red green blue]
 
-  def self.smallest_teams
-    minimum_member_count = member_counts.values.min
-    member_counts.keys.select { |t| member_counts[t] == minimum_member_count }
-  end
-
-  def self.member_counts
-    teams.keys.each_with_object({}) { |t, result| result[t] = User.send(t).count }.symbolize_keys
-  end
-
   def connect_to(user)
     ActiveRecord::Base.transaction do
       Connection.create!(from: self, to: user)
@@ -36,6 +27,6 @@ class User < ApplicationRecord
   end
 
   def generate_team
-    self.team ||= User.smallest_teams.sample
+    self.team ||= Team.smallest_teams.sample
   end
 end
