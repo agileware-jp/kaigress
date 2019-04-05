@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.teams.keys.each do |team|
+  users = Array.new(10) { |n| User.create(nickname: "#{team}-#{n}", team: team) }
+
+  10.times do
+    users.sample.connect_to(users.sample)
+  end
+end
