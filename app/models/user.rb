@@ -10,8 +10,7 @@ class User < ApplicationRecord
       id: id,
       label: nickname,
       team: team,
-      color: team,
-      font: { color: team },
+      group: team,
       size: 10 + connections.size * 10
     }
   end
