@@ -6,7 +6,7 @@ class User < ApplicationRecord
   enum team: %i[red green blue]
 
   def as_json(_opt)
-    { id: id, nickname: nickname, team: team }
+    { id: id, label: nickname, team: team, color: team, font: { color: team } }
   end
 
   def connect_to(user)
