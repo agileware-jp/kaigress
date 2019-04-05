@@ -3,6 +3,8 @@
 class ConnectionsController < ApplicationController
   before_action :set_user, only: %i[create]
 
+  def index; end
+
   def create
     other = User.find_by!(uuid: params[:uuid])
     # TODO: return reason for the error
