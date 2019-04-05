@@ -58,7 +58,6 @@ RSpec.describe Team, type: :model do
     end
   end
 
-
   describe '.connections_by_team' do
     subject { Team.connections_by_team }
 
@@ -69,6 +68,6 @@ RSpec.describe Team, type: :model do
       create :connection, from: create(:user, team: :blue), to: create(:user, team: :blue)
     }
 
-    it { is_expected.to eq({ red: [red_connection], green: [], blue: [blue_connection] }) }
+    it { is_expected.to eq(red: [red_connection], green: [], blue: [blue_connection]) }
   end
 end

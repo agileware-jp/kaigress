@@ -1,12 +1,12 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
+require 'rails_helper'
 
 def register
   visit register_path
   fill_in 'Nickname', with: 'bob'
   click_button
 end
-
 
 RSpec.feature 'Connection', type: :feature do
   describe 'Connection status' do

@@ -33,7 +33,7 @@ RSpec.describe Connection, type: :model do
     describe 'Restrict same team' do
       subject { build :connection, from: user, to: other_user }
       let(:user) { create :user, team: :red }
-      
+
       context 'in same team' do
         let(:other_user) { create :user, team: :red }
         it { is_expected.to be_valid }
