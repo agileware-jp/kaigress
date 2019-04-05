@@ -57,4 +57,18 @@ RSpec.describe Team, type: :model do
       it { is_expected.to contain_exactly(red_connection) }
     end
   end
+
+
+  describe '.connections_by_team' do
+    subject { Team.connections_by_team }
+
+    let!(:red_connection) {
+      create :connection, from: create(:user, team: :red), to: create(:user, team: :red)
+    }
+    let!(:blue_connection) {
+      create :connection, from: create(:user, team: :blue), to: create(:user, team: :blue)
+    }
+
+    it { is_expected.to eq({ red: [red_connection], green: [], blue: [blue_connection] }) }
+  end
 end

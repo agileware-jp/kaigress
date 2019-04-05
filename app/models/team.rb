@@ -13,4 +13,9 @@ class Team
   def self.connections_of(team)
     Connection.merge(User.where(team: team)).joins(:from)
   end
+
+
+  def self.connections_by_team
+    User.teams.keys.to_h { |team| [team, connections_of(team)] }.symbolize_keys
+  end
 end
