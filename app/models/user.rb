@@ -5,6 +5,10 @@ class User < ApplicationRecord
 
   enum team: %i[red green blue]
 
+  def as_json(_opt)
+    { id: id, nickname: nickname, team: team }
+  end
+
   def connect_to(user)
     ActiveRecord::Base.transaction do
       Connection.create!(from: self, to: user)
