@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.teams.keys.each do |team|
-  users = Array.new(10) { |n| User.create(nickname: "#{team}-#{n}", team: team) }
+  users = Array.new(20) { |n| User.create(nickname: "#{team}-#{n}", team: team) }
 
-  10.times do
+  200.times do
     users.sample.connect_to(users.sample)
   end
 end
