@@ -5,23 +5,28 @@
   .futurepanel__header
     h1.futurepanel__title Status
   .futurepanel__body
-    #team-network
+    #team-network data-connections="#{Team.connections_by_team.to_json}"
 
 javascript:
   var network;
 
   function redrawAll() {
-    // remove positoins
-    for (var i = 0; i < nodes.length; i++) {
-      delete nodes[i].x;
-      delete nodes[i].y;
-    }
-
     // create a network
     var container = document.getElementById('team-network');
     var data = {
-      nodes: nodes,
-      edges: edges
+      nodes: new vis.DataSet([
+        {id: 1, label: 'Node 1'},
+        {id: 2, label: 'Node 2'},
+        {id: 3, label: 'Node 3'},
+        {id: 4, label: 'Node 4'},
+        {id: 5, label: 'Node 5'}
+      ]),
+      edges: new vis.DataSet([
+        {from: 1, to: 3},
+        {from: 1, to: 2},
+        {from: 2, to: 4},
+        {from: 2, to: 5}
+      ]),
     };
     var options = {
       nodes: {
