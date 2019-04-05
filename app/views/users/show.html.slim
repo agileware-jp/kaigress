@@ -1,5 +1,14 @@
-p = @status_message
+- if @status_message
+  div.futurepanel = @status_message
 
-p Nickname: #{@user.nickname}
-p Team: #{@user.team}
-= qr_code_for @user
+div.futurepanel
+  div.futurepanel__header
+     h1.futurepanel__title #{@user.nickname}
+  div.futurepanel__body = display_team(@user)
+    | Team: #{@user.team}
+
+div.futurepanel
+  div.futurepanel__header
+    h1.futurepanel__title Your QR-Code
+  div.futurepanel__body
+    = qr_code_for @user
