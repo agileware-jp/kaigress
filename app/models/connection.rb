@@ -8,6 +8,10 @@ class Connection < ApplicationRecord
   validate :same_connection_does_not_exist
   validate :same_team
 
+  def as_json(_opts)
+    { from: from_id, to: to_id }
+  end
+
   private
 
   def from_and_to_are_different
