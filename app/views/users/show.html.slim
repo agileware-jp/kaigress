@@ -1,14 +1,17 @@
-- if @status_message
-  div.futurepanel = @status_message
+- if @user
+  - if @status_message
+    div.futurepanel = @status_message
 
-div.futurepanel
-  div.futurepanel__header
-     h1.futurepanel__title #{@user.nickname}
-  div.futurepanel__body = display_team(@user)
-    | Team: #{@user.team}
+  div.futurepanel
+    div.futurepanel__header
+      h1.futurepanel__title #{@user.nickname}
+    div.futurepanel__body = display_team(@user)
+      | Team: #{@user.team}
 
-div.futurepanel
-  div.futurepanel__header
-    h1.futurepanel__title Your QR-Code
-  div.futurepanel__body
-    = qr_code_for @user
+  div.futurepanel
+    div.futurepanel__header
+      h1.futurepanel__title Your QR-Code
+    div.futurepanel__body
+      = qr_code_for @user
+- else
+  div.futurepanel = t 'message.no_user'
