@@ -4,11 +4,13 @@ class Connection < ApplicationRecord
   belongs_to :from, class_name: 'User', foreign_key: :from_id, inverse_of: false
   belongs_to :to, class_name: 'User', foreign_key: :to_id, inverse_of: false
 
+  after_create :notify
+
   validate :from_and_to_are_different
   validate :same_connection_does_not_exist
   validate :same_team
 
-  def as_json(_opts)
+  def as_json(_opts = nil)
     { from: from_id, to: to_id }
   end
 
@@ -24,5 +26,9 @@ class Connection < ApplicationRecord
 
   def same_team
     errors.add(:base, :invalid) if from.team != to.team
+  end
+
+  def notify
+    StateChannel.broadcast_new_connection(self)
   end
 end

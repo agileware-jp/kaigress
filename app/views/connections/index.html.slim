@@ -61,6 +61,14 @@ javascript:
     };
 
     network = new vis.Network(container, data, options);
+
+    App.cable.subscriptions.create({ channel: 'StateChannel', model_type: 'user' }, {
+      received: user => data.nodes.add(user),
+    });
+
+    App.cable.subscriptions.create({ channel: 'StateChannel', model_type: 'connection' }, {
+      received: connection => data.edges.add(connection),
+    });
   }
 
   redrawAll()
