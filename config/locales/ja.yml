@@ -2,4 +2,7 @@ ja:
   activerecord:
     attributes:
       user:
-        nickname: ニックネーム 
+        nickname: ニックネーム
+
+  message:
+    no_user: Kaigressに参加していません。アジャイルウェアのブースにて参加登録が可能です。ぜひお越し下さい！
