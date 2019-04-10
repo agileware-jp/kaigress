@@ -50,19 +50,6 @@ const options = {
   },
 };
 
-const points = {};
-
-const teamOfConnection = (c) => {
-    const fromUser = data.nodes.get({ filter: u => u.id === c.from })[0];
-    return fromUser.team;
-};
-
-const calcPoints = () => {
-    TEAMS.forEach(t => {
-    points[t] = data.edges.get({ filter: c => teamOfConnection(c) === t}).length;
-    });
-};
-
 const network = new vis.Network(container, data, options);
 
 App.cable.subscriptions.create({ channel: 'StateChannel', model_type: 'user' }, {
@@ -72,5 +59,3 @@ App.cable.subscriptions.create({ channel: 'StateChannel', model_type: 'user' }, 
 App.cable.subscriptions.create({ channel: 'StateChannel', model_type: 'connection' }, {
     received: connection => data.edges.add(connection),
 });
-
-calcPoints();
