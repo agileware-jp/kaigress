@@ -34,7 +34,6 @@ gem 'redis', '~> 4.0'
 
 gem 'slim'
 gem 'pg'
-gem 'webpacker', '~> 4.x'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
