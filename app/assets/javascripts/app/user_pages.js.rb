@@ -4,17 +4,23 @@ require 'opal'
 require 'opal-ferro'
 require_tree './components'
 
-class UserPage < Ferro::Document
+class BaseDocument < Ferro::Document
+  def before_create
+    @compositor = MyCompositor.new
+  end
+
+  def render
+    `document.addEventListener("DOMContentLoaded", function() {#{self};})`
+  end
+end
+
+class UserInfo < BaseDocument
   def initialize(user, connection_url, no_user_error, message)
     @user = user
     @connection_url = connection_url
     @no_user_error = no_user_error
     @message = message
     super
-  end
-
-  def before_create
-    @compositor = MyCompositor.new
   end
 
   def cascade
@@ -28,9 +34,5 @@ class UserPage < Ferro::Document
     else
       add_child :error, Panel, content: @no_user_error
     end
-  end
-
-  def render
-    `document.addEventListener("DOMContentLoaded", function() {#{self};})`
   end
 end
