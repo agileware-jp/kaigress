@@ -3,7 +3,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
 
-  def new; end
+  def new
+    @register_url = users_path
+    render :page
+  end
 
   def show
     @qr_code_url = qr_code_url

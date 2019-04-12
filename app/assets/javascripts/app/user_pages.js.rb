@@ -36,3 +36,18 @@ class UserInfo < BaseDocument
     end
   end
 end
+
+class RegisterUser < BaseDocument
+  def initialize(register_url)
+    @register_url = register_url
+    super
+  end
+
+  def cascade
+    add_child :registration, Panel, title: 'Welcome to Kaigress'
+    form = registration.add_content :form, Form, for: :user, url: @register_url
+    form.add_label :nickname, 'Nickname'
+    form.add_text_field :nickname
+    form.add_submit_button 'Create User'
+  end
+end
