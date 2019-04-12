@@ -27,4 +27,8 @@ class UserPage < Ferro::Document
       add_child :error, Panel, content: @no_user_error
     end
   end
+
+  def render
+    `document.addEventListener("DOMContentLoaded", function() {#{self};})`
+  end
 end
