@@ -1,7 +1,0 @@
-/ - if @user
-/   - if @status_message
-/     div.futurepanel = @status_message
-
-script
-  == render partial: 'show', formats: :js, \
-                             locals: { qr_code_url: qr_code_url(@user), no_user_error: t('message.no_user') }

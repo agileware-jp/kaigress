@@ -5,7 +5,11 @@ class UsersController < ApplicationController
 
   def new; end
 
-  def show; end
+  def show
+    @qr_code_url = qr_code_url
+    @no_user_error = t('message.no_user')
+    render :page
+  end
 
   def create
     user = User.new(user_params)
@@ -21,5 +25,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:nickname)
+  end
+
+  def qr_code_url
+    ERB::Util.url_encode(connect_url(uuid: @user.uuid, connection_token: @user.connection_token))
   end
 end

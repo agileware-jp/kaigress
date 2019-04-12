@@ -5,10 +5,11 @@ require 'opal-ferro'
 require_tree './components'
 
 class UserPage < Ferro::Document
-  def initialize(user, connection_url, no_user_error)
+  def initialize(user, connection_url, no_user_error, message)
     @user = user
     @connection_url = connection_url
     @no_user_error = no_user_error
+    @message = message
     super
   end
 
@@ -17,7 +18,8 @@ class UserPage < Ferro::Document
   end
 
   def cascade
-    if !@user
+    if @user
+      add_child :message, Panel, content: @message if @message
       add_child :user_info, Panel, title: @user[:label]
       user_info.add_content :team, Team, team: @user[:team]
 
