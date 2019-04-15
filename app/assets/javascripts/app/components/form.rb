@@ -5,6 +5,7 @@ class Form < Ferro::Component::Base
     @domtype = :form
     @model_name = option_replace :for
     @url = option_replace :url
+    @labels = {}
     @inputs = {}
   end
 
@@ -19,7 +20,7 @@ class Form < Ferro::Component::Base
 
   def add_label(field, content)
     add_child("label_for_#{field}", Ferro::Form::Label, content: content).tap do |result|
-      result.set_attribute :for, field_id(field)
+      @labels[field] = result
     end
   end
 
@@ -27,6 +28,7 @@ class Form < Ferro::Component::Base
     add_child("text_field_for_#{field}", Ferro::Form::Input).tap do |result|
       result.set_attribute :name, field_name(field)
       @inputs[field] = result
+      @labels[field].set_attribute :for, result.dom_id if @labels.key? field
     end
   end
 
@@ -37,10 +39,6 @@ class Form < Ferro::Component::Base
   end
 
   private
-
-  def field_id(field)
-    "#{@model_name}_#{field}"
-  end
 
   def field_name(field)
     @model_name ? "#{@model_name}[#{field}]" : @field
