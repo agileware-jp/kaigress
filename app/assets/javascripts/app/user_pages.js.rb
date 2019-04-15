@@ -6,17 +6,15 @@ require_relative 'lib/base_document'
 require_tree './components'
 
 class UserInfo < BaseDocument
-  def initialize(user, connection_url, no_user_error, message)
+  def initialize(user, connection_url, no_user_error)
     @user = user
     @connection_url = connection_url
     @no_user_error = no_user_error
-    @message = message
     super
   end
 
   def cascade
     if @user
-      add_child :message, Panel, content: @message if @message
       add_child :user_info, Panel, title: @user[:label]
       user_info.add_content :team, Team, team: @user[:team]
 
@@ -40,5 +38,19 @@ class RegisterUser < BaseDocument
     form.add_label :nickname, 'Nickname'
     form.add_text_field :nickname
     form.add_submit_button 'Create User'
+  end
+end
+
+
+class Connected < BaseDocument
+  def initialize(message, root_url)
+    @message = message
+    @root_url = root_url
+    super
+  end
+
+  def cascade
+    add_child :message, Panel, content: @message
+    message.add_child :back, LinkButton, content: 'Back to Home', url: @root_url
   end
 end

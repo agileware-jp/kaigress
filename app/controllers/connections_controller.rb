@@ -15,7 +15,8 @@ class ConnectionsController < ApplicationController
       @status_message = "Connected with #{other.nickname}"
     end
 
-    render 'users/show'
+    @root_url = root_url
+    render 'users/page'
   end
 
   private
