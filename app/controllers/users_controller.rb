@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show]
+  before_action :set_user, only: %i[new show]
 
   def new
-    @register_url = users_path
-    render :page
+    if @user
+      redirect_to :root
+    else
+      @register_url = users_path
+      render :page
+    end
   end
 
   def show
