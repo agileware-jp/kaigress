@@ -4,7 +4,11 @@ class ConnectionsController < ApplicationController
   before_action :basic_auth, only: %i[index], if: -> { Rails.env.production? }
   before_action :set_user, only: %i[create]
 
-  def index; end
+  def index
+    @users = User.all
+    @connections = Connection.all
+    render :page
+  end
 
   def create
     other = User.find_by!(uuid: params[:uuid])

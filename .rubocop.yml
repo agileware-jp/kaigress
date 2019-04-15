@@ -36,3 +36,7 @@ Metrics/BlockLength:
 
 Style/ClassAndModuleChildren:
   Enabled: false
+
+Style/MutableConstant:
+  Exclude:
+    - 'app/assets/javascripts/**/*'
