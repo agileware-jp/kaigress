@@ -8,7 +8,7 @@ def register
   click_button
 end
 
-RSpec.feature 'Connection', type: :feature do
+RSpec.feature 'Connection', type: :feature, js: true do
   describe 'Connection status' do
     let(:other_user) { create :user, team: User.last.team }
 
