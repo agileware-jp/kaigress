@@ -1,9 +1,0 @@
-div.futurepanel
-  div.futurepanel__header
-    h1.futurepanel__title Welcome to Kaigress
-  div.futurepanel__body
-    = form_for User.new do |f|
-      div class='futureinput futureinput--text'
-        = f.label :nickname
-        = f.text_field :nickname
-        = f.submit class: 'futurebutton'
