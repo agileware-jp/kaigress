@@ -2,17 +2,8 @@
 
 require 'opal'
 require 'opal-ferro'
+require_relative 'lib/base_document'
 require_tree './components'
-
-class BaseDocument < Ferro::Document
-  def before_create
-    @compositor = MyCompositor.new
-  end
-
-  def render
-    `document.addEventListener("DOMContentLoaded", function() {#{self};})`
-  end
-end
 
 class UserInfo < BaseDocument
   def initialize(user, connection_url, no_user_error, message)
