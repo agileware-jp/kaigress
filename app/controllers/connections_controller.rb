@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController
+  before_action :basic_auth, only: %i[index], if: -> { Rails.env.production? }
   before_action :set_user, only: %i[create]
 
   def index; end
@@ -15,5 +16,13 @@ class ConnectionsController < ApplicationController
     end
 
     render 'users/show'
+  end
+
+  private
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV['BASIC_AUTH_USER'] && password == ENV['BASIC_AUTH_PASSWORD']
+    end
   end
 end
