@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       cookies.encrypted[:uuid] = user.uuid
-      redirect_to root_path
+      redirect_to :root
     else
       # TODO
     end
