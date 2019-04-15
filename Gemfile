@@ -35,8 +35,8 @@ gem 'redis', '~> 4.0'
 gem 'slim'
 gem 'pg'
 
-gem 'opal', '~> 0.10.6'
-gem 'opal-ferro', '~> 0.10.2'
+gem 'opal', '~> 0.11.4'
+gem 'opal-ferro', '~> 0.11.0'
 gem 'opal-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
