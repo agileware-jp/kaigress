@@ -75,7 +75,7 @@ RSpec.feature 'Connection', type: :feature, js: true do
       context 'when trying to connect one more time' do
         it 'shows fail message' do
           visit connect_path(uuid: uuid, connection_token: other_user.reload.connection_token)
-          expect(page).to have_text 'Connection failed'
+          expect(page).to have_text 'Already connected'
         end
       end
     end
@@ -85,7 +85,7 @@ RSpec.feature 'Connection', type: :feature, js: true do
       let(:connection_token) { 'blabla' }
 
       it 'shows fail message' do
-        expect(page).to have_text 'Connection failed'
+        expect(page).to have_text 'Please refresh'
       end
     end
   end
