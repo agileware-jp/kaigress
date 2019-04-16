@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'native'
-require_tree './network'
+require_tree '../lib/network'
 
 class Network < Ferro::Component::Base
   def before_create
