@@ -9,10 +9,8 @@ class User < ApplicationRecord
   def as_json(_opt = nil)
     {
       id: id,
-      label: nickname,
-      team: team,
-      group: team,
-      size: 10 + connections.size * 10
+      nickname: nickname,
+      team: team
     }
   end
 
@@ -29,10 +27,6 @@ class User < ApplicationRecord
 
   def generate_connection_token
     self.connection_token = SecureRandom.uuid
-  end
-
-  def connections
-    Connection.where(from: self).or(Connection.where(to: self))
   end
 
   private

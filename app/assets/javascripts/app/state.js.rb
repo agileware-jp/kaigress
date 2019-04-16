@@ -38,6 +38,59 @@ class GameState < BaseDocument
 
   def cascade
     add_child :network, Panel, title: 'Status'
-    network.add_content :network, Network, nodes: @users.values.map(&:node), edges: @connections.values.flatten.map(&:edge)
+    options = {
+      nodes: {
+        shape: 'dot',
+        font: {
+          size: 72,
+          face: 'Tahoma'
+        }
+      },
+      edges: {
+        width: 5,
+        color: { inherit: 'from' },
+        smooth: {
+          type: 'continuous'
+        }
+      },
+      physics: {
+        stabilization: true,
+        barnesHut: {
+          gravitationalConstant: -80_000,
+          springConstant: 0.001,
+          springLength: 200
+        }
+      },
+      interaction: {
+        dragNodes: false,
+        selectable: false
+      },
+      groups: { # Copied from default groups
+        blue: {
+          color: { border: '#2B7CE9', background: '#97C2FC' },
+          font: { color: '#2B7CE9' }
+        },
+        red: {
+          color: { border: '#FA0A10', background: '#FB7E81' },
+          font: { color: '#FA0A10' }
+        },
+        green: {
+          color: { border: '#41A906', background: '#7BE141' },
+          font: { color: '#41A906' }
+        }
+      }
+    }
+    network.add_content :network, Network, nodes: nodes, edges: edges, options: options
   end
+
+  private
+
+  def nodes
+    @users.values.map(&:node)
+  end
+
+  def edges
+    @connections.values.flatten.map(&:edge)
+  end
+
 end

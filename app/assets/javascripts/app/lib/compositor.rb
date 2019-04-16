@@ -9,7 +9,8 @@ class MyCompositor < Ferro::Compositor
       'Panel::Body': %w[futurepanel__body],
       'Team': %w[team],
       'Form': %w[futureinput futureinput--text],
-      'Button': %w[futurebutton]
+      'Button': %w[futurebutton],
+      'Network': %w[team-network]
     }
   end
 end
