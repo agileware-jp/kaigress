@@ -10,6 +10,49 @@ require_relative 'components/network'
 class GameState < BaseDocument
   TEAMS = %i[red green blue]
 
+  NETWORK_OPTIONS = {
+    nodes: {
+      shape: 'dot',
+      font: {
+        size: 72,
+        face: 'Tahoma'
+      }
+    },
+    edges: {
+      width: 5,
+      color: { inherit: 'from' },
+      smooth: {
+        type: 'continuous'
+      }
+    },
+    physics: {
+      stabilization: true,
+      barnesHut: {
+        gravitationalConstant: -80_000,
+        springConstant: 0.001,
+        springLength: 200
+      }
+    },
+    interaction: {
+      dragNodes: false,
+      selectable: false
+    },
+    groups: { # Copied from default groups
+      blue: {
+        color: { border: '#2B7CE9', background: '#97C2FC' },
+        font: { color: '#2B7CE9' }
+      },
+      red: {
+        color: { border: '#FA0A10', background: '#FB7E81' },
+        font: { color: '#FA0A10' }
+      },
+      green: {
+        color: { border: '#41A906', background: '#7BE141' },
+        font: { color: '#41A906' }
+      }
+    }
+  }
+
   def initialize(users, connections)
     @users = {}
     users.each do |u|
@@ -38,49 +81,7 @@ class GameState < BaseDocument
 
   def cascade
     add_child :network, Panel, title: 'Status'
-    options = {
-      nodes: {
-        shape: 'dot',
-        font: {
-          size: 72,
-          face: 'Tahoma'
-        }
-      },
-      edges: {
-        width: 5,
-        color: { inherit: 'from' },
-        smooth: {
-          type: 'continuous'
-        }
-      },
-      physics: {
-        stabilization: true,
-        barnesHut: {
-          gravitationalConstant: -80_000,
-          springConstant: 0.001,
-          springLength: 200
-        }
-      },
-      interaction: {
-        dragNodes: false,
-        selectable: false
-      },
-      groups: { # Copied from default groups
-        blue: {
-          color: { border: '#2B7CE9', background: '#97C2FC' },
-          font: { color: '#2B7CE9' }
-        },
-        red: {
-          color: { border: '#FA0A10', background: '#FB7E81' },
-          font: { color: '#FA0A10' }
-        },
-        green: {
-          color: { border: '#41A906', background: '#7BE141' },
-          font: { color: '#41A906' }
-        }
-      }
-    }
-    network.add_content :network, Network, nodes: nodes, edges: edges, options: options
+    network.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
   end
 
   private
