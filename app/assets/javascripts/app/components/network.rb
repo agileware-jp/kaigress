@@ -8,10 +8,10 @@ class Network < Ferro::Component::Base
     @nodes = DataSet.new option_replace(:nodes, [])
     @edges = DataSet.new option_replace(:edges, [])
 
-    @options = option_replace(:options, {})
+    @network_options = option_replace(:options, {})
   end
 
   def cascade
-    @network = `new vis.Network(#{element}, { nodes: #{@nodes.to_n}, edges: #{@edges.to_n}}, #{@options.to_n})`
+    @network = `new vis.Network(#{element}, { nodes: #{@nodes.to_n}, edges: #{@edges.to_n}}, #{@network_options.to_n})`
   end
 end
