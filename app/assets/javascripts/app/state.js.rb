@@ -3,6 +3,7 @@
 require 'opal'
 require 'opal-ferro'
 require_relative 'lib/base_document'
+require_tree './lib/action_cable'
 require_tree './lib/state'
 require_relative 'components/panel'
 require_relative 'components/network'
@@ -80,8 +81,16 @@ class GameState < BaseDocument
   end
 
   def cascade
-    add_child :network, Panel, title: 'Status'
-    network.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
+    add_child :network_container, Panel, title: 'Status'
+    network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
+
+    consumer = ActionCable::Consumer.new
+    consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user|
+      network.add_node add_user(user).as_node
+    end
+    consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection|
+      network.add_edge add_connection(connection).as_edge
+    end
   end
 
   private
