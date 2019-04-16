@@ -6,7 +6,7 @@ class DataSet
   end
 
   def add(element)
-    @obj.JS.add(element.to_n)
+    @obj.JS.add(element)
   end
 
   def to_n

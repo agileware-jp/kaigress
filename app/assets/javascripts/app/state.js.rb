@@ -87,11 +87,11 @@ class GameState < BaseDocument
   private
 
   def nodes
-    @users.values.map(&:node)
+    @users.values.map(&:as_node)
   end
 
   def edges
-    @connections.values.flatten.map(&:edge)
+    @connections.values.flatten.map(&:as_edge)
   end
 
 end

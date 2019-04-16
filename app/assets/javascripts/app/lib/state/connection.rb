@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Connection
-  attr_reader :from, :to, :edge
+  attr_reader :from, :to
 
   def initialize(from, to)
     @from = from
@@ -14,5 +14,9 @@ class Connection
 
   def team
     from.team
+  end
+
+  def as_edge
+    @edge
   end
 end

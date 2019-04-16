@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User
-  attr_reader :id, :team, :nickname, :node
+  attr_reader :id, :team, :nickname
   attr_reader :connections
 
   def initialize(user_json)
@@ -19,5 +19,9 @@ class User
   def connections=(value)
     @connections = value
     @node.JS[:size] = 10 + value * 10
+  end
+
+  def as_node
+    @node
   end
 end
