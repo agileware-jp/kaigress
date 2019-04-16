@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'action_cable'
+
 module ActionCable
   class Consumer
     def initialize
