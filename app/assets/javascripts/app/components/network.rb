@@ -14,4 +14,12 @@ class Network < Ferro::Component::Base
   def cascade
     @network = `new vis.Network(#{element}, { nodes: #{@nodes.to_n}, edges: #{@edges.to_n}}, #{@network_options.to_n})`
   end
+
+  def add_node(node)
+    @nodes.add(node)
+  end
+
+  def add_edge(edge)
+    @edges.add(edge)
+  end
 end
