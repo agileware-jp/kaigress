@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class DataSet
-  def initialize(initial_elements = nil)
-    @obj = `new vis.DataSet(#{initial_elements || []})`
-  end
+  extend Native::Helpers
 
-  def add(element)
-    @obj.JS.add(element)
+  alias_native :add
+
+  def initialize(initial_elements = nil)
+    @native = `new vis.DataSet(#{initial_elements || []})`
   end
 
   def to_n
-    @obj
+    @native
   end
 end
