@@ -9,13 +9,16 @@ class ConnectionsController < ApplicationController
   def create
     other = User.find_by!(uuid: params[:uuid])
     # TODO: return reason for the error
-    @status_message = 'Connection failed'
-    if params[:connection_token] == other.connection_token &&
-       @user.connect_to(other)
-      @status_message = "Connected with #{other.nickname}"
-    end
+    @status_message = if params[:connection_token] != other.connection_token
+                        t('message.qr_code_outdated')
+                      elsif @user.connect_to(other)
+                        t('message.connected_with', name: other.nickname)
+                      else
+                        t('message.already_connected')
+                      end
 
-    render 'users/show'
+    @root_url = root_url
+    render 'users/page'
   end
 
   private

@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       cookies.encrypted[:uuid] = user.uuid
-      redirect_to root_path
+      redirect_to :root
     else
       # TODO
     end
@@ -35,6 +35,6 @@ class UsersController < ApplicationController
   end
 
   def qr_code_url
-    ERB::Util.url_encode(connect_url(uuid: @user.uuid, connection_token: @user.connection_token))
+    ERB::Util.url_encode(connect_url(uuid: @user.uuid, connection_token: @user.connection_token)) if @user
   end
 end
