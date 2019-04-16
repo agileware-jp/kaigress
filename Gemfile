@@ -38,6 +38,7 @@ gem 'pg'
 gem 'opal', '~> 0.11.4'
 gem 'opal-ferro', '~> 0.11.0'
 gem 'opal-rails'
+gem 'opal-actioncable'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
