@@ -2,26 +2,25 @@
 
 class User
   attr_reader :id, :team, :nickname
-  attr_reader :connections
+  attr_accessor :connections
 
   def initialize(user_json)
     @id = user_json[:id]
     @team = user_json[:team]
     @nickname = user_json[:nickname]
     @connections = 0
-
-    @node = `{}`
-    @node.JS[:id] = @id
-    @node.JS[:group] = @team
-    @node.JS[:label] = @nickname
   end
 
-  def connections=(value)
-    @connections = value
-    @node.JS[:size] = 10 + value * 10
+  def node_size
+    10 + connections * 10
   end
 
   def as_node
-    @node
+    {
+      id: id,
+      label: nickname,
+      group: team,
+      size: node_size
+    }.to_n
   end
 end

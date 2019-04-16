@@ -18,6 +18,10 @@ class Network < Ferro::Component::Base
     @nodes.add(node)
   end
 
+  def update_node(id, attributes)
+    @nodes.update(attributes.merge(id: id))
+  end
+
   def add_edge(edge)
     @edges.add(edge)
   end

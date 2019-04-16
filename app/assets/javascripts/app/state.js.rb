@@ -59,7 +59,8 @@ class GameState < BaseDocument
     users.each do |u|
       add_user(u)
     end
-    @connections = TEAMS.map { |t| [t, []] }.to_h
+    @connections = []
+    @points = TEAMS.map { |t| [t, 0] }.to_h
     connections.each do |c|
       add_connection(c)
     end
@@ -76,7 +77,8 @@ class GameState < BaseDocument
     Connection.new(@users[connection_json[:from]], @users[connection_json[:to]]).tap { |result|
       result.from.connections += 1
       result.to.connections += 1
-      @connections[result.team] << result
+      @connections << result
+      @points[result.team] += 1
     }
   end
 
@@ -85,11 +87,14 @@ class GameState < BaseDocument
     network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
 
     consumer = ActionCable::Consumer.new
-    consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user|
-      network.add_node add_user(user).as_node
+    consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user_json|
+      network.add_node add_user(user_json).as_node
     end
-    consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection|
-      network.add_edge add_connection(connection).as_edge
+    consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection_json|
+      connection = add_connection(connection_json)
+      network.add_edge connection.as_edge
+      network.update_node(connection.from.id, size: connection.from.node_size)
+      network.update_node(connection.to.id, size: connection.to.node_size)
     end
   end
 
@@ -100,7 +105,7 @@ class GameState < BaseDocument
   end
 
   def edges
-    @connections.values.flatten.map(&:as_edge)
+    @connections.map(&:as_edge)
   end
 
 end

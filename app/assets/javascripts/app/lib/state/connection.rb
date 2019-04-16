@@ -6,10 +6,6 @@ class Connection
   def initialize(from, to)
     @from = from
     @to = to
-
-    @edge = `{}`
-    @edge.JS[:from] = from.id
-    @edge.JS[:to] = to.id
   end
 
   def team
@@ -17,6 +13,9 @@ class Connection
   end
 
   def as_edge
-    @edge
+    {
+      from: from.id,
+      to: to.id
+    }.to_n
   end
 end
