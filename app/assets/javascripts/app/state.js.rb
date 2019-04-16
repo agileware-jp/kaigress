@@ -4,6 +4,8 @@ require 'opal'
 require 'opal-ferro'
 require_relative 'lib/base_document'
 require_tree './lib/state'
+require_relative 'components/panel'
+require_relative 'components/network'
 
 class GameState < BaseDocument
   TEAMS = %i[red green blue]
@@ -32,5 +34,10 @@ class GameState < BaseDocument
       result.to.connections += 1
       @connections[result.team] << result
     }
+  end
+
+  def cascade
+    add_child :network, Panel, title: 'Status'
+    network.add_content :network, Network, nodes: @users.values.map(&:node), edges: @connections.values.flatten.map(&:edge)
   end
 end
