@@ -1,6 +1,13 @@
 require_relative 'boot'
 
-require 'rails/all'
+require 'rails'
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_view/railtie'
+require 'action_cable/engine'
+require 'sprockets/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -17,7 +24,7 @@ module Rubykaigi2019Kaigress
     # the framework and any gems in your application.
 
     config.generators do |g|
-      g.test_framework :rspec 
+      g.test_framework :rspec
     end
   end
 end
