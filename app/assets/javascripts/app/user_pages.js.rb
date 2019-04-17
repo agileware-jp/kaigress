@@ -2,7 +2,7 @@
 
 require 'opal'
 require 'opal-ferro'
-require_relative 'lib/base_document'
+require_relative 'layout/base_document'
 require_relative 'components/panel'
 require_relative 'components/team'
 require_relative 'components/qr_code'

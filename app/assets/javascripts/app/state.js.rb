@@ -2,7 +2,7 @@
 
 require 'opal'
 require 'opal-ferro'
-require_relative 'lib/base_document'
+require_relative 'layout/base_document'
 require_tree './lib/action_cable'
 require_tree './lib/state'
 require_relative 'components/panel'
