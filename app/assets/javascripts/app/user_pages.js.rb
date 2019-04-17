@@ -18,7 +18,7 @@ class UserInfo < BaseDocument
 
   def cascade
     if @user
-      add_child :user_info, Panel, title: @user[:label]
+      add_child :user_info, Panel, title: @user[:nickname]
       user_info.add_content :team, Team, team: @user[:team]
 
       add_child :qr_code, Panel, title: 'Your QR-Code'
