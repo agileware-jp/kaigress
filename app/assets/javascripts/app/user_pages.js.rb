@@ -44,7 +44,6 @@ class RegisterUser < BaseDocument
   end
 end
 
-
 class Connected < BaseDocument
   def initialize(message, root_url)
     @message = message
