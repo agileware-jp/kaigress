@@ -7,6 +7,7 @@ require_tree './lib/action_cable'
 require_tree './lib/state'
 require_relative 'components/panel'
 require_relative 'components/network'
+require_relative 'components/button'
 
 class GameState < BaseDocument
   TEAMS = %i[red green blue]
@@ -85,6 +86,8 @@ class GameState < BaseDocument
   def cascade
     add_child :network_container, Panel, title: 'Status'
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
+    network_container.add_divider
+    network_container.add_content :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
 
     handle_websocket
   end
@@ -116,5 +119,9 @@ class GameState < BaseDocument
       update_node(connection.from.id, size: connection.from.node_size)
       update_node(connection.to.id, size: connection.to.node_size)
     }
+  end
+
+  def reset_view
+    @network.fit
   end
 end
