@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController
-  before_action :basic_auth, only: %i[index], if: -> { Rails.env.production? }
+  before_action :basic_auth, only: %i[index], if: -> { Rails.env.production? && ENV['USE_BASIC_AUTH'] }
   before_action :set_user, only: %i[create]
 
   def index
