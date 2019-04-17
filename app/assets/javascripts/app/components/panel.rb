@@ -16,9 +16,13 @@ class Panel < Ferro::Component::Base
   class Body < Ferro::Component::Base
   end
 
+  class Divider < Ferro::Component::Base
+  end
+
   def before_create
     @title = option_replace :title
     @content = option_replace :content
+    @id = Ferro::Sequence.new 'divider_'
   end
 
   def cascade
@@ -28,5 +32,9 @@ class Panel < Ferro::Component::Base
 
   def add_content(*args)
     content.add_child(*args)
+  end
+
+  def add_divider
+    content.add_child @id.next, Divider
   end
 end
