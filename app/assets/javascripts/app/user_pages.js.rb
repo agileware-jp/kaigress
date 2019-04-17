@@ -8,7 +8,6 @@ require_relative 'components/team'
 require_relative 'components/qr_code'
 require_relative 'components/form'
 require_relative 'components/state_link'
-require_relative 'components/copyright_notice'
 
 class UserInfo < BaseDocument
   def initialize(user, connection_url, state_url, no_user_error)
@@ -19,7 +18,7 @@ class UserInfo < BaseDocument
     super
   end
 
-  def cascade
+  def content
     if @user
       add_child :user_info, Panel, title: @user[:nickname]
       user_info.add_content :team, Team, team: @user[:team]
@@ -27,7 +26,6 @@ class UserInfo < BaseDocument
 
       add_child :qr_code, Panel, title: 'Your QR-Code'
       qr_code.add_content :qr_code, QrCode, url: @connection_url
-      qr_code.add_to_footer :copyright, CopyrightNotice
     else
       add_child :error, Panel, content: @no_user_error
     end
@@ -40,13 +38,12 @@ class RegisterUser < BaseDocument
     super
   end
 
-  def cascade
+  def content
     add_child :registration, Panel, title: 'Welcome to Kaigress'
     form = registration.add_content :form, Form, for: :user, url: @register_url
     form.add_label :nickname, 'Nickname'
     form.add_text_field :nickname
     form.add_submit_button 'Create User'
-    registration.add_to_footer :copyright, CopyrightNotice
   end
 end
 
@@ -57,9 +54,8 @@ class Connected < BaseDocument
     super
   end
 
-  def cascade
+  def content
     add_child :message, Panel, content: @message
     message.add_child :back, LinkButton, content: 'Back to Home', url: @root_url
-    message.add_to_footer :copyright, CopyrightNotice
   end
 end

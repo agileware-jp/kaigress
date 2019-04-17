@@ -13,7 +13,7 @@ class MyCompositor < Ferro::Compositor
       'Form': %w[futureinput futureinput--text],
       'Button': %w[futurebutton],
       'StateLink': %w[state-link],
-      'CopyrightNotice': %w[copyright-notice],
+      'BaseDocument::CopyrightNotice': %w[copyright-notice],
       'Network': %w[team-network]
     }
   end

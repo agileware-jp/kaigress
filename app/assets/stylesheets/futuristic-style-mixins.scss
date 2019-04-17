@@ -7,4 +7,11 @@ $dark-red: rgb(120, 0, 0);
 $black: rgb(0, 0, 0);
 $yellow: rgb(255, 200, 0);
 
+$font-stack: 'Exo 2', Arial, sans-serif;
 $text-color: $gray;
+
+@mixin futuristic-text($size: 14px, $weight: 100) {
+  font: normal $weight #{$size}/1.2em $font-stack;
+  letter-spacing: .06em;
+  color: $text-color;
+}
