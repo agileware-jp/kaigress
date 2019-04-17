@@ -84,18 +84,9 @@ class GameState < BaseDocument
 
   def cascade
     add_child :network_container, Panel, title: 'Status'
-    network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
+    @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
 
-    consumer = ActionCable::Consumer.new
-    consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user_json|
-      network.add_node add_user(user_json).as_node
-    end
-    consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection_json|
-      connection = add_connection(connection_json)
-      network.add_edge connection.as_edge
-      network.update_node(connection.from.id, size: connection.from.node_size)
-      network.update_node(connection.to.id, size: connection.to.node_size)
-    end
+    handle_websocket
   end
 
   private
@@ -108,4 +99,22 @@ class GameState < BaseDocument
     @connections.map(&:as_edge)
   end
 
+  def handle_websocket
+    consumer = ActionCable::Consumer.new
+    consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user_json|
+      @network.add_node add_user(user_json).as_node
+    end
+    consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection_json|
+      connection = add_connection(connection_json)
+      handle_new_connection(connection)
+    end
+  end
+
+  def handle_new_connection(connection)
+    @network.instance_eval {
+      add_edge connection.as_edge
+      update_node(connection.from.id, size: connection.from.node_size)
+      update_node(connection.to.id, size: connection.to.node_size)
+    }
+  end
 end
