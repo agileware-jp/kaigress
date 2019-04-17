@@ -8,6 +8,7 @@ require_tree './lib/state'
 require_relative 'components/panel'
 require_relative 'components/network'
 require_relative 'components/button'
+require_relative 'components/copyright_notice'
 
 class GameState < BaseDocument
   TEAMS = %i[red green blue]
@@ -88,6 +89,7 @@ class GameState < BaseDocument
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
     network_container.add_divider
     network_container.add_content :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
+    network_container.add_to_footer :copyright, CopyrightNotice
 
     handle_websocket
   end

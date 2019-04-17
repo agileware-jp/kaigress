@@ -16,3 +16,24 @@
 .team-network {
   height: 600px;
 }
+
+.copyright-notice {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  a {
+    margin-left: 5px;
+  }
+}
+
+a {
+  color: $blue;
+  text-decoration: none;
+  &:visited {
+    color: $blue;
+  }
+  &:hover {
+    color: rgba($blue, .8);
+  }
+}
