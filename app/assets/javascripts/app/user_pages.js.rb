@@ -3,7 +3,10 @@
 require 'opal'
 require 'opal-ferro'
 require_relative 'lib/base_document'
-require_tree './components'
+require_relative 'components/panel'
+require_relative 'components/team'
+require_relative 'components/qr_code'
+require_relative 'components/form'
 
 class UserInfo < BaseDocument
   def initialize(user, connection_url, no_user_error)

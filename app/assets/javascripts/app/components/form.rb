@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'button'
+
 class Form < Ferro::Component::Base
   def before_create
     @domtype = :form

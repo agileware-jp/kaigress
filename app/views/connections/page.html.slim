@@ -1,0 +1,6 @@
+= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css', media: 'all'
+= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js'
+= javascript_include_tag 'app/state', 'data-turbolinks-track': 'reload'
+
+script
+  == render partial: controller.action_name, formats: :js
