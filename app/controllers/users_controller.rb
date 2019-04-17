@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def show
     @qr_code_url = qr_code_url
+    @state_url = state_url
     @no_user_error = t('message.no_user')
     render :page
   end

@@ -1,0 +1,45 @@
+@import 'futuristic-style-mixins';
+
+body > * {
+  width: 100%;
+}
+
+a {
+  color: $blue;
+  text-decoration: none;
+  &:visited {
+    color: $blue;
+  }
+  &:hover {
+    color: rgba($blue, .8);
+  }
+}
+
+.copyright-notice {
+  @include futuristic-text();
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  a {
+    margin-left: 5px;
+  }
+}
+
+.team {
+  font-size: 20px;
+  text-align: center;
+}
+
+.team img {
+  height: 150px;
+}
+
+.team-network {
+  height: 600px;
+}
+
+.state-link {
+  text-align: center;
+  margin: 10px 5px;
+}

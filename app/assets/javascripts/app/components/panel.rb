@@ -13,11 +13,11 @@ class Panel < Ferro::Component::Base
     end
   end
 
-  class Body < Ferro::Component::Base
-  end
+  class Body < Ferro::Component::Base; end
 
-  class Divider < Ferro::Component::Base
-  end
+  class Divider < Ferro::Component::Base; end
+
+  class Footer < Ferro::Component::Base; end
 
   def before_create
     @title = option_replace :title
@@ -34,7 +34,19 @@ class Panel < Ferro::Component::Base
     content.add_child(*args)
   end
 
+  def add_to_footer(*args)
+    add_footer unless @footer
+    @footer.add_child(*args)
+  end
+
   def add_divider
     content.add_child @id.next, Divider
+  end
+
+  private
+
+  def add_footer
+    add_child :footer_divider, Divider
+    @footer = add_child :footer, Footer
   end
 end

@@ -2,7 +2,7 @@
 
 require 'opal'
 require 'opal-ferro'
-require_relative 'lib/base_document'
+require_relative 'layout/base_document'
 require_tree './lib/action_cable'
 require_tree './lib/state'
 require_relative 'components/panel'
@@ -83,11 +83,10 @@ class GameState < BaseDocument
     }
   end
 
-  def cascade
+  def content
     add_child :network_container, Panel, title: 'Status'
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
-    network_container.add_divider
-    network_container.add_content :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
+    network_container.add_to_footer :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
 
     handle_websocket
   end

@@ -8,9 +8,12 @@ class MyCompositor < Ferro::Compositor
       'Panel::Title': %w[futurepanel__title],
       'Panel::Body': %w[futurepanel__body],
       'Panel::Divider': %w[futurepanel__divider],
+      'Panel::Footer': %w[futurepanel__footer],
       'Team': %w[team],
       'Form': %w[futureinput futureinput--text],
       'Button': %w[futurebutton],
+      'UserInfo::StateLink': %w[state-link],
+      'BaseDocument::CopyrightNotice': %w[copyright-notice],
       'Network': %w[team-network]
     }
   end
