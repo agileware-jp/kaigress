@@ -7,9 +7,19 @@ require_relative 'components/panel'
 require_relative 'components/team'
 require_relative 'components/qr_code'
 require_relative 'components/form'
-require_relative 'components/state_link'
+require_relative 'components/link_button'
 
 class UserInfo < BaseDocument
+  class StateLink < Ferro::Component::Base
+    def before_create
+      @url = option_replace :url
+    end
+
+    def cascade
+      add_child :button, LinkButton, content: 'Check Current Landscape!', url: @url
+    end
+  end
+
   def initialize(user, connection_url, state_url, no_user_error)
     @user = user
     @state_url = state_url
@@ -22,7 +32,7 @@ class UserInfo < BaseDocument
     if @user
       add_child :user_info, Panel, title: @user[:nickname]
       user_info.add_content :team, Team, team: @user[:team]
-      user_info.add_child :state_link, StateLink, url: @state_url
+      user_info.add_content :state_link, StateLink, url: @state_url
 
       add_child :qr_code, Panel, title: 'Your QR-Code'
       qr_code.add_content :qr_code, QrCode, url: @connection_url

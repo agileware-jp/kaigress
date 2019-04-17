@@ -4,17 +4,15 @@ body > * {
   width: 100%;
 }
 
-.team {
-  font-size: 20px;
-  text-align: center;
-}
-
-.team img {
-  height: 150px;
-}
-
-.team-network {
-  height: 600px;
+a {
+  color: $blue;
+  text-decoration: none;
+  &:visited {
+    color: $blue;
+  }
+  &:hover {
+    color: rgba($blue, .8);
+  }
 }
 
 .copyright-notice {
@@ -28,13 +26,20 @@ body > * {
   }
 }
 
-a {
-  color: $blue;
-  text-decoration: none;
-  &:visited {
-    color: $blue;
-  }
-  &:hover {
-    color: rgba($blue, .8);
-  }
+.team {
+  font-size: 20px;
+  text-align: center;
+}
+
+.team img {
+  height: 150px;
+}
+
+.team-network {
+  height: 600px;
+}
+
+.state-link {
+  text-align: center;
+  margin: 10px 5px;
 }
