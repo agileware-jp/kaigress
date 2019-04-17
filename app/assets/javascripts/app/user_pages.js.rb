@@ -7,10 +7,12 @@ require_relative 'components/panel'
 require_relative 'components/team'
 require_relative 'components/qr_code'
 require_relative 'components/form'
+require_relative 'components/state_link'
 
 class UserInfo < BaseDocument
-  def initialize(user, connection_url, no_user_error)
+  def initialize(user, connection_url, state_url, no_user_error)
     @user = user
+    @state_url = state_url
     @connection_url = connection_url
     @no_user_error = no_user_error
     super
@@ -18,8 +20,9 @@ class UserInfo < BaseDocument
 
   def cascade
     if @user
-      add_child :user_info, Panel, title: @user[:nickname]
+      add_child :user_info, Panel, title: @user[:nickname], hide_footer: true
       user_info.add_content :team, Team, team: @user[:team]
+      user_info.add_child :state_link, StateLink, url: @state_url
 
       add_child :qr_code, Panel, title: 'Your QR-Code'
       qr_code.add_content :qr_code, QrCode, url: @connection_url

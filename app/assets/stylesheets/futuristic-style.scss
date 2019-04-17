@@ -56,10 +56,28 @@
     border-top: 1px solid $border-color;
   }
   .futurepanel__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
     box-sizing: border-box;
     height: 2em;
     font-size: .8em;
     color: $border-color;
+
+    .futurepanel__footerlink {
+      margin-left: 5px;
+    }
+  }
+
+  a {
+    color: $blue;
+    text-decoration: none;
+    &:visited {
+      color: $blue;
+    }
+    &:hover {
+      color: rgba($blue, .8);
+    }
   }
 }
 
@@ -259,6 +277,10 @@
 }
 
 
+.state-link {
+  text-align: center;
+  margin: 10px 5px;
+}
 
 .heading {
   font: normal 100 12px/1.2em 'Exo 2', Arial, sans-serif;
