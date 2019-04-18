@@ -26,17 +26,21 @@ class User
       node.update(
         label: github_username,
         shape: 'image',
-        image: "https://github.com/#{github_username}.png?size=40"
+        image: "#{github_url}.png?size=40"
       )
     end
     node.to_n
   end
 
-  private
-
   def link_to_github?
     nickname.start_with? '@'
   end
+
+  def github_url
+    "https://github.com/#{github_username}"
+  end
+
+  private
 
   def github_username
     nickname[1..-1]
