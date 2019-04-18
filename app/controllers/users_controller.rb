@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      cookies.encrypted[:uuid] = user.uuid
+      cookies.permanent.encrypted[:uuid] = user.uuid
       redirect_to :root
     else
       # TODO
