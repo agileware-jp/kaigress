@@ -79,14 +79,5 @@ RSpec.feature 'Connection', type: :feature, js: true do
         end
       end
     end
-
-    context 'Token is different' do
-      let(:uuid) { other_user.uuid }
-      let(:connection_token) { 'blabla' }
-
-      it 'shows fail message' do
-        expect(page).to have_text 'Please refresh'
-      end
-    end
   end
 end
