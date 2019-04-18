@@ -9,9 +9,9 @@ class UsersController < ApplicationController
     else
       @register_url = users_path
       @explanation = t('message.username_explanation')
-    end
 
-    render 'common/page'
+      render 'common/page'
+    end
   end
 
   def show
