@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require_tree '../../../app/lib/action_cable'
-require_tree '../../../app/lib/state'
-
 require 'app/layout/base_document'
+
+require 'app/lib/action_cable'
+require 'app/lib/state'
+
 require 'app/components/panel'
 require 'app/components/network'
 require 'app/components/button'
