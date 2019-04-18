@@ -1,4 +1,4 @@
-# Kaigress
+# Kaigress [![CircleCI](https://circleci.com/gh/agileware-jp/rubykaigi2019-kaigress.svg?style=svg)](https://circleci.com/gh/agileware-jp/rubykaigi2019-kaigress)
 
 ## Development
 
