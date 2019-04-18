@@ -18,9 +18,16 @@ class User
   def as_node
     {
       id: id,
-      label: nickname,
+      label: link_to_github? ? nickname[1..-1] : nickname,
       group: team,
-      size: node_size
+      size: node_size,
+      link: link_to_github?
     }.to_n
+  end
+
+  private
+
+  def link_to_github?
+    nickname.start_with? '@'
   end
 end
