@@ -6,6 +6,7 @@ class Network < Ferro::Component::Base
   extend Native::Helpers
 
   alias_native :fit
+  alias_native :focus
 
   def before_create
     @nodes = DataSet.new option_replace(:nodes, [])
