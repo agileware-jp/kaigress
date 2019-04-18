@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[new show]
+  before_action :set_user, only: %i[new show update]
 
   def new
     if @user
@@ -33,6 +33,11 @@ class UsersController < ApplicationController
     else
       # TODO
     end
+  end
+
+  def update
+    @user&.update(user_params)
+    redirect_to :root
   end
 
   private
