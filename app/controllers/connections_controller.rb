@@ -7,7 +7,6 @@ class ConnectionsController < ApplicationController
     @users = User.all
     @connections = Connection.all
     @focused_user = params[:focused_user]
-    render :page
   end
 
   def create
