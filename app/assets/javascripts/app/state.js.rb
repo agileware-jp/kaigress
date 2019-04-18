@@ -148,6 +148,6 @@ class GameState < BaseDocument
   end
 
   def focus_on_user
-    @network.focus(@focused_user, scale: 1)
+    @network.focus(@focused_user, scale: 0.5)
   end
 end
