@@ -32,17 +32,17 @@ class User
     node.to_n
   end
 
-  def link_to_github?
-    nickname.start_with? '@'
-  end
-
   def github_url
-    "https://github.com/#{github_username}"
+    "https://github.com/#{github_username}" if link_to_github?
   end
 
   private
 
   def github_username
     nickname[1..-1]
+  end
+
+  def link_to_github?
+    nickname.start_with? '@'
   end
 end

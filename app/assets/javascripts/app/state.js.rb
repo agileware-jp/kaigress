@@ -123,7 +123,7 @@ class GameState < BaseDocument
   def handle_node_click
     @network.on('selectNode') { |data|
       selected_user = @users[data[:nodes][0]]
-      next unless selected_user.link_to_github?
+      next unless selected_user.github_url
 
       `window.open(#{selected_user.github_url})`
     }
