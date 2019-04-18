@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  before_create :generate_uuid, :generate_team, :generate_connection_token
+  before_create :generate_uuid, :generate_team
   after_create :notify
 
   enum team: %i[red green blue]
@@ -15,18 +15,7 @@ class User < ApplicationRecord
   end
 
   def connect_to(user)
-    ActiveRecord::Base.transaction do
-      Connection.create!(from: self, to: user)
-      user.generate_connection_token
-      user.save!
-      true
-    rescue ActiveRecord::RecordInvalid
-      false
-    end
-  end
-
-  def generate_connection_token
-    self.connection_token = SecureRandom.uuid
+    Connection.new(from: self, to: user).save
   end
 
   private

@@ -37,6 +37,6 @@ class UsersController < ApplicationController
   end
 
   def qr_code_url
-    ERB::Util.url_encode(connect_url(uuid: @user.uuid, connection_token: @user.connection_token)) if @user
+    ERB::Util.url_encode(connect_url(uuid: @user.uuid)) if @user
   end
 end
