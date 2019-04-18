@@ -43,8 +43,9 @@ class UserInfo < BaseDocument
 end
 
 class RegisterUser < BaseDocument
-  def initialize(register_url)
+  def initialize(register_url, explanation)
     @register_url = register_url
+    @explanation = explanation
     super
   end
 
@@ -54,6 +55,7 @@ class RegisterUser < BaseDocument
     form.add_label :nickname, 'Nickname'
     form.add_text_field :nickname
     form.add_submit_button 'Create User'
+    registration.add_content :explanation, Ferro::Element::Text, content: @explanation
   end
 end
 

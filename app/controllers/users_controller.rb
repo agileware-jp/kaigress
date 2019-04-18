@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       redirect_to :root
     else
       @register_url = users_path
+      @explanation = t('message.username_explanation')
       render :page
     end
   end

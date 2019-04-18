@@ -1,1 +1,1 @@
-RegisterUser.new(@register_url).render
+RegisterUser.new(@register_url, @explanation).render

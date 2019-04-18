@@ -36,6 +36,7 @@ en:
         nickname: Nickname
 
   message:
+    username_explanation: If you add @ in front of your username it will be connected to the GitHub account of that same name.
     no_user: You are not participating in Kaigress. Please come to the Agileware sponsor booth to register. We're looking forward to see you!
     qr_code_outdated: QR-Code outdated. Please refresh and try again.
     connected_with: "Connected with $%{name}"
