@@ -7,8 +7,8 @@ RSpec.describe User, type: :model do
     let(:user) { create :user, team: :red }
     let(:other_user) { create :user, team: :red }
 
-    it 'updates connection_token' do
-      expect { user.connect_to(other_user) }.to(change { other_user.reload.connection_token })
+    it 'creates a connection' do
+      expect { user.connect_to(other_user) }.to(change { Connection.count })
     end
   end
 end

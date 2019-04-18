@@ -61,12 +61,11 @@ RSpec.feature 'Connection', type: :feature, js: true do
 
     before do
       register
-      visit connect_path(uuid: uuid, connection_token: connection_token)
+      visit connect_path(uuid: uuid)
     end
 
     context 'Connection successful' do
       let(:uuid) { other_user.uuid }
-      let(:connection_token) { other_user.connection_token }
 
       it 'shows success message' do
         expect(page).to have_text 'Connected with'
@@ -74,7 +73,7 @@ RSpec.feature 'Connection', type: :feature, js: true do
 
       context 'when trying to connect one more time' do
         it 'shows fail message' do
-          visit connect_path(uuid: uuid, connection_token: other_user.reload.connection_token)
+          visit connect_path(uuid: uuid)
           expect(page).to have_text 'You are already connected'
         end
       end

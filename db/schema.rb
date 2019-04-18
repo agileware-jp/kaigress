@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_065510) do
+ActiveRecord::Schema.define(version: 2019_04_18_033459) do
 
   create_table "connections", force: :cascade do |t|
     t.integer "from_id", null: false
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2019_04_04_065510) do
     t.integer "team"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "connection_token"
     t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
