@@ -9,8 +9,9 @@ class UsersController < ApplicationController
     else
       @register_url = users_path
       @explanation = t('message.username_explanation')
-      render :page
     end
+
+    render 'common/page'
   end
 
   def show
@@ -20,7 +21,8 @@ class UsersController < ApplicationController
     else
       @no_user_error = t('message.no_user')
     end
-    render :page
+
+    render 'common/page'
   end
 
   def create

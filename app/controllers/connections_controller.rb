@@ -19,6 +19,7 @@ class ConnectionsController < ApplicationController
                       end
 
     @root_url = root_url
-    render 'users/page'
+
+    render 'common/page'
   end
 end

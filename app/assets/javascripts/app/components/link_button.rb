@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'button'
+
 class LinkButton < Button
   def before_create
     @url = option_replace :url
