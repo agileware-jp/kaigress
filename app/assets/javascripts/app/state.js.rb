@@ -95,18 +95,24 @@ class GameState < BaseDocument
 
   private
 
+  def team_centers
+    TEAMS.map { |t| { id: t, hidden: true }.to_n }
+  end
+
   def nodes
-    @users.values.map(&:as_node)
+    @users.values.map(&:as_node) + team_centers
   end
 
   def edges
-    @connections.map(&:as_edge)
+    @connections.map(&:as_edge) + @users.values.map { |u| { from: u.team, to: u.id }.to_n }
   end
 
   def handle_websocket
     consumer = ActionCable::Consumer.new
     consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user_json|
-      @network.add_node add_user(user_json).as_node
+      user = add_user(user_json)
+      @network.add_node user.as_node
+      @network.add_edge({ from: user.team, to: user.id }.to_n)
       reset_view if @reset_on_update.checked?
     end
     consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection_json|
