@@ -12,7 +12,7 @@ class User
   end
 
   def node_size
-    20 + connections * 10
+    20 + connections * 5
   end
 
   def as_node
