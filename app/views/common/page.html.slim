@@ -1,0 +1,4 @@
+= javascript_include_tag "app/pages/#{controller.controller_name}/#{controller.action_name}", 'data-turbolinks-track': 'reload'
+
+script
+  == render partial: controller.action_name, formats: :js

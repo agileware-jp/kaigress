@@ -7,7 +7,6 @@ class ConnectionsController < ApplicationController
     @users = User.all
     @connections = Connection.all
     @focused_user = params[:focused_user]
-    render :page
   end
 
   def create
@@ -19,6 +18,7 @@ class ConnectionsController < ApplicationController
                       end
 
     @root_url = root_url
-    render 'users/page'
+
+    render 'common/page'
   end
 end

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'opal'
-require 'opal-ferro'
-require_relative 'layout/base_document'
-require_tree './lib/action_cable'
-require_tree './lib/state'
-require_relative 'components/panel'
-require_relative 'components/network'
-require_relative 'components/button'
-require_relative 'components/checkbox'
+require 'app/layout/base_document'
+
+require 'app/lib/action_cable'
+require 'app/lib/state'
+
+require 'app/components/panel'
+require 'app/components/network'
+require 'app/components/button'
+require 'app/components/checkbox'
 
 class GameState < BaseDocument
   TEAMS = %i[red green blue]

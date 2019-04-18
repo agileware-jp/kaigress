@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'opal-ferro'
 require_relative 'compositor'
 
 class BaseDocument < Ferro::Document
