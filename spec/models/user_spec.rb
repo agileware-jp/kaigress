@@ -3,12 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe '#connect_to' do
-    let(:user) { create :user, team: :red }
-    let(:other_user) { create :user, team: :red }
+  describe 'as_json' do
+    subject { user.as_json }
 
-    it 'creates a connection' do
-      expect { user.connect_to(other_user) }.to(change { Connection.count })
+    context 'normal user' do
+      let(:user) { create :user, team: :red, nickname: 'Bob' }
+
+      it { is_expected.to eq(id: user.id, nickname: 'Bob', team: 'red', github: false) }
+    end
+
+    context 'Github user' do
+      let(:user) { create :user, team: :red, nickname: '@Bob' }
+
+      it { is_expected.to eq(id: user.id, nickname: 'Bob', team: 'red', github: true) }
     end
   end
 end
