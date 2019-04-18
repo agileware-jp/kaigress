@@ -8,6 +8,7 @@ require_tree './lib/state'
 require_relative 'components/panel'
 require_relative 'components/network'
 require_relative 'components/button'
+require_relative 'components/checkbox'
 
 class GameState < BaseDocument
   TEAMS = %i[red green blue]
@@ -86,6 +87,7 @@ class GameState < BaseDocument
     add_child :network_container, Panel, title: 'Status'
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
     network_container.add_to_footer :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
+    @reset_on_update = network_container.add_to_footer :reset_on_update, Checkbox, label: 'Reset on Update'
 
     handle_websocket
     handle_node_click
@@ -105,10 +107,12 @@ class GameState < BaseDocument
     consumer = ActionCable::Consumer.new
     consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user_json|
       @network.add_node add_user(user_json).as_node
+      reset_view if @reset_on_update.checked?
     end
     consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection_json|
       connection = add_connection(connection_json)
       handle_new_connection(connection)
+      reset_view if @reset_on_update.checked?
     end
   end
 
