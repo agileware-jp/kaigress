@@ -29,4 +29,8 @@ class Network < Ferro::Component::Base
   def add_edge(edge)
     @edges.add(edge)
   end
+
+  def on(event, &handler)
+    @native.JS.on(event, ->(data) { handler.call Hash.new(data) })
+  end
 end

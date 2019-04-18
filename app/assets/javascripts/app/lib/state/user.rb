@@ -12,15 +12,37 @@ class User
   end
 
   def node_size
-    10 + connections * 10
+    20 + connections * 10
   end
 
   def as_node
-    {
+    node = {
       id: id,
       label: nickname,
       group: team,
       size: node_size
-    }.to_n
+    }
+    if link_to_github?
+      node.update(
+        label: github_username,
+        shape: 'image',
+        image: "#{github_url}.png?size=40"
+      )
+    end
+    node.to_n
+  end
+
+  def github_url
+    "https://github.com/#{github_username}" if link_to_github?
+  end
+
+  private
+
+  def github_username
+    nickname[1..-1]
+  end
+
+  def link_to_github?
+    nickname.start_with? '@'
   end
 end

@@ -36,8 +36,7 @@ class GameState < BaseDocument
       }
     },
     interaction: {
-      dragNodes: false,
-      selectable: false
+      dragNodes: false
     },
     groups: { # Copied from default groups
       blue: {
@@ -89,6 +88,7 @@ class GameState < BaseDocument
     network_container.add_to_footer :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
 
     handle_websocket
+    handle_node_click
   end
 
   private
@@ -117,6 +117,15 @@ class GameState < BaseDocument
       add_edge connection.as_edge
       update_node(connection.from.id, size: connection.from.node_size)
       update_node(connection.to.id, size: connection.to.node_size)
+    }
+  end
+
+  def handle_node_click
+    @network.on('selectNode') { |data|
+      selected_user = @users[data[:nodes][0]]
+      next unless selected_user.github_url
+
+      `window.open(#{selected_user.github_url})`
     }
   end
 
