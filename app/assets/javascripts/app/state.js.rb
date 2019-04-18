@@ -51,10 +51,6 @@ class GameState < BaseDocument
       green: {
         color: { border: '#41A906', background: '#7BE141' },
         font: { color: '#41A906' }
-      },
-      invisible: {
-        color: { border: 'rgba(0, 0, 0, 0)', background: 'rgba(0, 0, 0, 0)' },
-        font: { color: 'rgba(0, 0, 0, 0)' }
       }
     }
   }
@@ -100,7 +96,7 @@ class GameState < BaseDocument
   private
 
   def team_centers
-    TEAMS.map { |t| { id: t, group: 'invisible' }.to_n }
+    TEAMS.map { |t| { id: t, hidden: true }.to_n }
   end
 
   def nodes
