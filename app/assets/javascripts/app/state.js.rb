@@ -88,7 +88,7 @@ class GameState < BaseDocument
     add_child :network_container, Panel, title: 'Status'
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
     network_container.add_to_footer :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
-    @reset_on_update = network_container.add_to_footer :reset_on_update, Checkbox, checked: true, label: 'Reset on Update'
+    @reset_on_update = network_container.add_to_footer :reset_on_update, Checkbox, label: 'Reset on Update'
 
     handle_websocket
   end
