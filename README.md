@@ -1,24 +1,15 @@
-# README
+# Kaigress [![CircleCI](https://circleci.com/gh/agileware-jp/rubykaigi2019-kaigress.svg?style=svg)](https://circleci.com/gh/agileware-jp/rubykaigi2019-kaigress)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development
 
-Things you may want to cover:
+```
+git clone https://github.com/agileware-jp/rubykaigi2019-kaigress.git
+cd rubykaigi2019-kaigress
+bundle install
+docker-compose up # starts Redis server
+bin/rails server
+```
 
-* Ruby version
+## Credit
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Futuristic UI CSS by Edward Bryant (https://codepen.io/edwardbryant/pen/EKXzLa)
