@@ -9,6 +9,7 @@ class User
     @team = user_json[:team]
     @nickname = user_json[:nickname]
     @connections = 0
+    @github = user_json[:github]
   end
 
   def node_size
@@ -22,9 +23,8 @@ class User
       group: team,
       size: node_size
     }
-    if link_to_github?
+    if github?
       node.update(
-        label: github_username,
         shape: 'image',
         image: "#{github_url}.png?size=40"
       )
@@ -32,17 +32,11 @@ class User
     node.to_n
   end
 
+  def github?
+    @github
+  end
+
   def github_url
-    "https://github.com/#{github_username}" if link_to_github?
-  end
-
-  private
-
-  def github_username
-    nickname[1..-1]
-  end
-
-  def link_to_github?
-    nickname.start_with? '@'
+    "https://github.com/#{nickname}"
   end
 end

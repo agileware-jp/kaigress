@@ -9,8 +9,9 @@ class User < ApplicationRecord
   def as_json(_opt = nil)
     {
       id: id,
-      nickname: nickname,
-      team: team
+      nickname: nickname.delete_prefix('@'),
+      team: team,
+      github: github_account?
     }
   end
 
@@ -19,6 +20,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def github_account?
+    nickname.start_with? '@'
+  end
 
   def generate_uuid
     self.uuid = SecureRandom.uuid
