@@ -51,6 +51,10 @@ class GameState < BaseDocument
       green: {
         color: { border: '#41A906', background: '#7BE141' },
         font: { color: '#41A906' }
+      },
+      invisible: {
+        color: { border: 'rgba(0, 0, 0, 0)', background: 'rgba(0, 0, 0, 0)' },
+        font: { color: 'rgba(0, 0, 0, 0)' }
       }
     }
   }
@@ -95,12 +99,16 @@ class GameState < BaseDocument
 
   private
 
+  def team_centers
+    TEAMS.map { |t| { id: t, group: 'invisible' }.to_n }
+  end
+
   def nodes
-    @users.values.map(&:as_node)
+    @users.values.map(&:as_node) + team_centers
   end
 
   def edges
-    @connections.map(&:as_edge)
+    @connections.map(&:as_edge) + @users.values.map { |u| { from: u.team, to: u.id }.to_n }
   end
 
   def handle_websocket
