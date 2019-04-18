@@ -12,6 +12,7 @@ class MyCompositor < Ferro::Compositor
       'Team': %w[team],
       'Form': %w[futureinput futureinput--text],
       'Button': %w[futurebutton],
+      'Checkbox': %w[checkbox],
       'UserInfo::StateLink': %w[state-link],
       'BaseDocument::CopyrightNotice': %w[copyright-notice],
       'Network': %w[team-network]

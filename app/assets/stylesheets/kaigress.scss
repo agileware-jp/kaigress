@@ -43,3 +43,8 @@ a {
   text-align: center;
   margin: 10px 5px;
 }
+
+.checkbox {
+  @include futuristic-text();
+  display: inline-block;
+}
