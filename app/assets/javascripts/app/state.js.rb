@@ -55,7 +55,7 @@ class GameState < BaseDocument
     }
   }
 
-  def initialize(users, connections)
+  def initialize(users, connections, focused_user)
     @users = {}
     users.each do |u|
       add_user(u)
@@ -65,6 +65,7 @@ class GameState < BaseDocument
     connections.each do |c|
       add_connection(c)
     end
+    @focused_user = focused_user
     super
   end
 
@@ -86,8 +87,11 @@ class GameState < BaseDocument
   def content
     add_child :network_container, Panel, title: 'Status'
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
+
     network_container.add_to_footer :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
     @reset_on_update = network_container.add_to_footer :reset_on_update, Checkbox, label: 'Reset on Update'
+
+    @network.on('stabilized') { focus_on_user } if @focused_user
 
     handle_websocket
     handle_node_click
@@ -141,5 +145,9 @@ class GameState < BaseDocument
 
   def reset_view
     @network.fit
+  end
+
+  def focus_on_user
+    @network.focus(@focused_user, scale: 0.5)
   end
 end

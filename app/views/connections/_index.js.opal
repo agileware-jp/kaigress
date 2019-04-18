@@ -1,1 +1,1 @@
-GameState.new(@users, @connections).render
+GameState.new(@users, @connections, @focused_user).render

@@ -14,9 +14,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @qr_code_url = qr_code_url
-    @state_url = state_url
-    @no_user_error = t('message.no_user')
+    if @user
+      @qr_code_url = qr_code_url
+      @state_url = state_url(focused_user: @user.id)
+    else
+      @no_user_error = t('message.no_user')
+    end
     render :page
   end
 
