@@ -48,3 +48,7 @@ a {
   @include futuristic-text();
   display: inline-block;
 }
+
+input[type="submit"], input[type="button"] {
+  -webkit-appearance: none;
+}
