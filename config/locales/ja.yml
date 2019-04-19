@@ -14,4 +14,4 @@ ja:
     messages:
       different_teams: 同じチームじゃないと繋がれません。
       already_connected: すでにつながっています。
-      same_user: 自分と繋がれません。
+      same_user: 自分とは繋がれません。
