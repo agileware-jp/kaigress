@@ -40,4 +40,9 @@ en:
     no_user: You are not participating in Kaigress. Please come to the Agileware sponsor booth to register. We're looking forward to see you!
     qr_code_outdated: QR-Code outdated. Please refresh and try again.
     connected_with: "Connected with $%{name}"
-    already_connected: You are already connected to that user!
+
+  errors:
+    messages:
+      different_teams: You can only connect to someone from your own team.
+      already_connected: You are already connected to that user!
+      same_user: You cannot connect to yourself!
