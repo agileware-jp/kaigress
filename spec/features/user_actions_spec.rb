@@ -58,6 +58,7 @@ end
 RSpec.feature 'Connection', type: :feature, js: true do
   describe 'Connection status' do
     let(:other_user) { create :user, team: User.last.team }
+    let(:uuid) { other_user.uuid }
 
     before do
       register
@@ -65,8 +66,6 @@ RSpec.feature 'Connection', type: :feature, js: true do
     end
 
     context 'Connection successful' do
-      let(:uuid) { other_user.uuid }
-
       it 'shows success message' do
         expect(page).to have_text 'Connected with'
       end
@@ -76,6 +75,22 @@ RSpec.feature 'Connection', type: :feature, js: true do
           visit connect_path(uuid: uuid)
           expect(page).to have_text 'You are already connected'
         end
+      end
+    end
+
+    context 'Trying to connect to oneself' do
+      let(:uuid) { User.last.uuid }
+
+      it 'shows error message' do
+        expect(page).to have_text 'You cannot connect to yourself'
+      end
+    end
+
+    context 'Trying to connect to user from different team' do
+      let(:other_user) { create :user }
+
+      it 'shows error message' do
+        expect(page).to have_text 'You can only connect to someone from your own team'
       end
     end
   end

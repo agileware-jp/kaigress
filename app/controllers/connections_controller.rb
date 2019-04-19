@@ -11,10 +11,11 @@ class ConnectionsController < ApplicationController
 
   def create
     other = User.find_by!(uuid: params[:uuid])
-    @status_message = if @user.connect_to(other)
+    connection = @user.connect_to(other)
+    @status_message = if connection.valid?
                         t('message.connected_with', name: other.nickname)
                       else
-                        t('message.already_connected')
+                        connection.errors.full_messages[0]
                       end
 
     @root_url = root_url

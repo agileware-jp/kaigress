@@ -15,7 +15,7 @@ class User < ApplicationRecord
   end
 
   def connect_to(user)
-    Connection.new(from: self, to: user).save
+    Connection.create(from: self, to: user)
   end
 
   private
