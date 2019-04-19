@@ -21,7 +21,7 @@ class Connection < ApplicationRecord
   end
 
   def same_connection_does_not_exist
-    errors.add(:base, :already_connected) if Connection.where(from: from, to: to).or(Connection.where(from: to, to: from)).exists?
+    errors.add(:base, :already_connected) if Connection.where.not(id: id).where(from: from, to: to).or(Connection.where(from: to, to: from)).exists?
   end
 
   def same_team

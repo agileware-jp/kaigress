@@ -8,8 +8,7 @@ RSpec.describe Connection, type: :model do
       let(:user) { create :user }
 
       it 'cannot create a connection between one and the same user' do
-        connection = build :connection, from: user, to: user
-        expect(connection).to be_invalid
+        expect(user.connect_to(user)).to be_invalid
       end
     end
 
@@ -22,16 +21,16 @@ RSpec.describe Connection, type: :model do
       end
 
       it 'cannot create exactly the same connection' do
-        expect(user.connect_to(other_user)).to(be_falsey)
+        expect(user.connect_to(other_user)).to(be_invalid)
       end
 
       it 'cannot create the opposite connection' do
-        expect(other_user.connect_to(user)).to(be_falsey)
+        expect(other_user.connect_to(user)).to(be_invalid)
       end
     end
 
     describe 'Restrict same team' do
-      subject { build :connection, from: user, to: other_user }
+      subject { user.connect_to(other_user) }
       let(:user) { create :user, team: :red }
 
       context 'in same team' do
