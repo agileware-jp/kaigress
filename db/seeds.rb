@@ -9,7 +9,10 @@
 User.teams.keys.each do |team|
   users = Array.new(20) { |n| User.create(nickname: "#{team}-#{n}", team: team) }
 
+  # cache
+  all_users = User.all
+
   200.times do
-    users.sample.connect_to(users.sample)
+    users.sample.connect_to(all_users.sample)
   end
 end
