@@ -20,6 +20,7 @@ class MyCompositor < Ferro::Compositor
       'UserInfo::StateLink': %w[state-link],
       'BaseDocument::CopyrightNotice': %w[copyright-notice],
       'GameState::Points': %w[points],
+      'GameState::FarewellMessage': %w[farewell-message],
       'Network': %w[team-network]
     }
   end

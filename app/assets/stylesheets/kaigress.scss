@@ -100,3 +100,12 @@ input[type="submit"], input[type="button"] {
 .points {
   float: right;
 }
+
+.farewell-message {
+  color: $red;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin: 24px 0;
+}
