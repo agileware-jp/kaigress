@@ -23,7 +23,7 @@ class GameState < BaseDocument
     },
     edges: {
       width: 5,
-      color: { inherit: 'from' },
+      color: { inherit: 'both' },
       smooth: {
         type: 'continuous'
       }

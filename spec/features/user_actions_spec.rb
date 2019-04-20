@@ -85,13 +85,5 @@ RSpec.feature 'Connection', type: :feature, js: true do
         expect(page).to have_text 'You cannot connect to yourself'
       end
     end
-
-    context 'Trying to connect to user from different team' do
-      let(:other_user) { create :user }
-
-      it 'shows error message' do
-        expect(page).to have_text 'You can only connect to someone from your own team'
-      end
-    end
   end
 end
