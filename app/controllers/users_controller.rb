@@ -22,6 +22,7 @@ class UsersController < ApplicationController
         update: update_url
       }
     else
+      @urls = {}
       @error = t('message.no_user')
     end
 

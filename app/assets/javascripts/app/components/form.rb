@@ -47,6 +47,6 @@ class Form < Ferro::Component::Base
   end
 
   def csrf_token
-    `document.getElementsByName('csrf-token').item(0).content`
+    `(document.getElementsByName('csrf-token').item(0) || { content: '' }).content`
   end
 end

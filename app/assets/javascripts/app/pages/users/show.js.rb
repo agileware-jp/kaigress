@@ -46,9 +46,9 @@ class UserInfo < BaseDocument
 
   def initialize(user, urls:, error:)
     @user = user
-    @state_url = urls.fetch(:state)
-    @connection_url = urls.fetch(:connection)
-    @update_url = urls.fetch(:update)
+    @state_url = urls[:state]
+    @connection_url = urls[:connection]
+    @update_url = urls[:update]
     @no_user_error = error
     super
   end
