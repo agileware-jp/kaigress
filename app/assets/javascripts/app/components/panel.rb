@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class Panel < Ferro::Component::Base
-  class Title < Ferro::Element::Text; end
+  class Title < Ferro::Element::Text
+    def before_create
+      @options[:size] = 1
+      super
+    end
+  end
 
   class Header < Ferro::Component::Base
     def before_create
@@ -9,7 +14,7 @@ class Panel < Ferro::Component::Base
     end
 
     def cascade
-      add_child :title, Title, size: 1, content: @content if @content
+      add_child :title, Title, content: @content if @content
     end
   end
 

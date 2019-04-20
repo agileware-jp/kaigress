@@ -26,8 +26,8 @@ class Form < Ferro::Component::Base
     end
   end
 
-  def add_text_field(field)
-    add_child("text_field_for_#{field}", Ferro::Form::Input).tap do |result|
+  def add_text_field(field, *args)
+    add_child("text_field_for_#{field}", Ferro::Form::Input, *args).tap do |result|
       result.set_attribute :name, field_name(field)
       @inputs[field] = result
       @labels[field].set_attribute :for, result.dom_id if @labels.key? field
