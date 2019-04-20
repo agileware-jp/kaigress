@@ -53,7 +53,7 @@ input[type="submit"], input[type="button"] {
   -webkit-appearance: none;
 }
 
-.panel-header > * {
+.panel-header > *, .nickname-form > * {
   display: inline-block;
   vertical-align: middle;
 }
@@ -62,7 +62,14 @@ input[type="submit"], input[type="button"] {
   line-height: 36px;
 }
 
-.edit-button {
+.edit-button, .nickname-form > input[type="submit"] {
   margin-left: 5px;
-  vertical-align: middle;
+}
+
+.nickname-form > input[type="text"] {
+  width: auto;
+}
+
+.hidden {
+  display: none;
 }

@@ -13,6 +13,7 @@ class MyCompositor < Ferro::Compositor
       'Button': %w[futurebutton],
       'Checkbox': %w[checkbox],
       'UserInfo::EditButton': %w[edit-button],
+      'UserInfo::NicknameForm': %w[nickname-form],
       'UserInfo::Team': %w[team],
       'UserInfo::StateLink': %w[state-link],
       'BaseDocument::CopyrightNotice': %w[copyright-notice],

@@ -16,10 +16,13 @@ class UsersController < ApplicationController
 
   def show
     if @user
-      @qr_code_url = qr_code_url
-      @state_url = state_url(focused_user: @user.id)
+      @urls = {
+        connection: qr_code_url,
+        state: state_url(focused_user: @user.id),
+        update: update_url
+      }
     else
-      @no_user_error = t('message.no_user')
+      @error = t('message.no_user')
     end
 
     render 'common/page'
