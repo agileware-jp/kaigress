@@ -9,8 +9,11 @@ require 'app/components/panel'
 require 'app/components/network'
 require 'app/components/button'
 require 'app/components/checkbox'
+require 'app/components/metric'
 
 class GameState < BaseDocument
+  class Points < Ferro::Component::Base; end;
+
   TEAMS = %i[red green blue]
 
   NETWORK_OPTIONS = {
@@ -87,6 +90,10 @@ class GameState < BaseDocument
   def content
     add_child :network_container, Panel, title: 'Status'
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
+    points = network_container.add_to_header :points, Points
+    @point_display = TEAMS.map { |t|
+      [t, points.add_child("points_#{t}", Metric, value: @points[t], color: t)]
+    }.to_h
 
     network_container.add_to_footer :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
     @reset_on_update = network_container.add_to_footer :reset_on_update, Checkbox, label: 'Reset on Update'
