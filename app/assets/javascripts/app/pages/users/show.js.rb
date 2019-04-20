@@ -3,10 +3,19 @@
 require 'app/layout/base_document'
 require 'app/components/link_button'
 require 'app/components/panel'
-require 'app/components/team'
 require 'app/components/qr_code'
 
 class UserInfo < BaseDocument
+  class Team < Ferro::Component::Base
+    def before_create
+      @team = option_replace :team
+    end
+
+    def after_create
+      add_child :team_badge, Ferro::Element::Image, src: "/images/#{@team}.png"
+    end
+  end
+
   class StateLink < Ferro::Component::Base
     def before_create
       @url = option_replace :url
