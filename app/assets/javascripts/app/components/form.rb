@@ -17,7 +17,7 @@ class Form < Ferro::Component::Base
   end
 
   def cascade
-    add_child :authenticity_token, Ferro::Form::Input, type: :hidden, name: 'authenticity_token'
+    add_child :authenticity_token, Ferro::Form::Input, type: :hidden, name: 'authenticity_token', content: csrf_token
   end
 
   def add_label(field, content)
@@ -44,5 +44,9 @@ class Form < Ferro::Component::Base
 
   def field_name(field)
     @model_name ? "#{@model_name}[#{field}]" : @field
+  end
+
+  def csrf_token
+    `document.getElementsByName('csrf-token').item(0).content`
   end
 end
