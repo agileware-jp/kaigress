@@ -83,7 +83,7 @@ class GameState < BaseDocument
       result.from.connections += 1
       result.to.connections += 1
       @connections << result
-      @points[result.team] += 1
+      @points[result.team] += points_for_connection(result)
     }
   end
 
@@ -156,5 +156,9 @@ class GameState < BaseDocument
 
   def focus_on_user
     @network.focus(@focused_user, scale: 0.5)
+  end
+
+  def points_for_connection(connection)
+    connection.from.team == connection.to.team ? 3 : 1
   end
 end
