@@ -59,7 +59,7 @@ class GameState < BaseDocument
     }
   }
 
-  def initialize(users, connections, focused_user)
+  def initialize(users, connections, focused_user, eos)
     @users = {}
     users.each do |u|
       add_user(u)
@@ -70,6 +70,7 @@ class GameState < BaseDocument
       add_connection(c)
     end
     @focused_user = focused_user
+    @eos = eos
     super
   end
 
@@ -90,7 +91,7 @@ class GameState < BaseDocument
 
   def content
     add_child :network_container, Panel, title: 'Status'
-    network_container.add_content :fawawell_message, FarewellMessage, content: 'Thanks to join Kaigress! See you RubyKaigi 2020!' 
+    network_container.add_content :fawawell_message, FarewellMessage, content: 'Thanks to join Kaigress! See you RubyKaigi 2020!' if @eos
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
     points = network_container.add_to_header :points, Points
     @point_display = TEAMS.map { |t|

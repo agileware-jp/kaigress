@@ -7,6 +7,7 @@ class ConnectionsController < ApplicationController
     @users = User.all
     @connections = Connection.all
     @focused_user = params[:focused_user]
+    @eos = ENV['END_OF_SERVICE'].present?
   end
 
   def create
