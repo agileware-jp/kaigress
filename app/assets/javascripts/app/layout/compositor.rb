@@ -12,11 +12,14 @@ class MyCompositor < Ferro::Compositor
       'Form': %w[futureinput futureinput--text],
       'Button': %w[futurebutton],
       'Checkbox': %w[checkbox],
+      'Metric': %w[futuremetric],
+      'Metric::Value': %w[futuremetric__value],
       'UserInfo::EditButton': %w[edit-button],
       'UserInfo::NicknameForm': %w[nickname-form],
       'UserInfo::Team': %w[team],
       'UserInfo::StateLink': %w[state-link],
       'BaseDocument::CopyrightNotice': %w[copyright-notice],
+      'GameState::Points': %w[points],
       'Network': %w[team-network]
     }
   end

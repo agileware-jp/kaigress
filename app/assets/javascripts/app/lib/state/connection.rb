@@ -8,10 +8,6 @@ class Connection
     @to = to
   end
 
-  def team
-    from.team
-  end
-
   def as_edge
     {
       from: from.id,

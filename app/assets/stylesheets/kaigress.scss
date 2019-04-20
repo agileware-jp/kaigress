@@ -73,3 +73,30 @@ input[type="submit"], input[type="button"] {
 .hidden {
   display: none;
 }
+
+.futuremetric {
+  height: 2.5em;
+  width: 2.5em;
+  padding: 0;
+
+  .futuremetric__value {
+    font-size: 1.2em;
+    margin-top: .3em;
+  }
+}
+
+.red {
+  color: $red;
+}
+
+.green {
+  color: $green;
+}
+
+.blue {
+  color: $blue;
+}
+
+.points {
+  float: right;
+}

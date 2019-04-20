@@ -9,8 +9,11 @@ require 'app/components/panel'
 require 'app/components/network'
 require 'app/components/button'
 require 'app/components/checkbox'
+require 'app/components/metric'
 
 class GameState < BaseDocument
+  class Points < Ferro::Component::Base; end;
+
   TEAMS = %i[red green blue]
 
   NETWORK_OPTIONS = {
@@ -80,13 +83,17 @@ class GameState < BaseDocument
       result.from.connections += 1
       result.to.connections += 1
       @connections << result
-      @points[result.team] += 1
+      update_points(result)
     }
   end
 
   def content
     add_child :network_container, Panel, title: 'Status'
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
+    points = network_container.add_to_header :points, Points
+    @point_display = TEAMS.map { |t|
+      [t, points.add_child("points_#{t}", Metric, value: @points[t], color: t)]
+    }.to_h
 
     network_container.add_to_footer :reset_button, Button, content: 'Reset', clicked: method(:reset_view)
     @reset_on_update = network_container.add_to_footer :reset_on_update, Checkbox, label: 'Reset on Update'
@@ -115,18 +122,24 @@ class GameState < BaseDocument
     consumer = ActionCable::Consumer.new
     consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user_json|
       user = add_user(user_json)
-      @network.add_node user.as_node
-      @network.add_edge({ from: user.team, to: user.id }.to_n)
+      add_user_to_network(user)
       reset_view if @reset_on_update.checked?
     end
     consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection_json|
       connection = add_connection(connection_json)
-      handle_new_connection(connection)
+      add_connection_to_network(connection)
       reset_view if @reset_on_update.checked?
     end
   end
 
-  def handle_new_connection(connection)
+  def add_user_to_network(user)
+    @network.instance_eval {
+      add_node user.as_node
+      add_edge({ from: user.team, to: user.id }.to_n)
+    }
+  end
+
+  def add_connection_to_network(connection)
     @network.instance_eval {
       add_edge connection.as_edge
       update_node(connection.from.id, size: connection.from.node_size)
@@ -149,5 +162,19 @@ class GameState < BaseDocument
 
   def focus_on_user
     @network.focus(@focused_user, scale: 0.5)
+  end
+
+  def update_points(connection)
+    if connection.from.team == connection.to.team
+      add_points(3, team: connection.from.team)
+    else
+      add_points(1, team: connection.from.team)
+      add_points(1, team: connection.to.team)
+    end
+  end
+
+  def add_points(points, team:)
+    @points[team] += points
+    @point_display[team].metric_value = @points[team] if @point_display
   end
 end
