@@ -73,6 +73,6 @@ class UserInfo < BaseDocument
 
   def show_edit
     @header.each { |el| el.add_state :hidden, true }
-    @nickname_form ||= user_info.add_to_header :nickname_form, NicknameForm, nickname: @user[:nickname], url: @update_url
+    user_info.add_to_header :nickname_form, NicknameForm, nickname: @user[:nickname], url: @update_url
   end
 end
