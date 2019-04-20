@@ -8,7 +8,6 @@ class Connection < ApplicationRecord
 
   validate :from_and_to_are_different
   validate :same_connection_does_not_exist
-  validate :same_team
 
   def as_json(_opts = nil)
     { from: from_id, to: to_id }
@@ -22,10 +21,6 @@ class Connection < ApplicationRecord
 
   def same_connection_does_not_exist
     errors.add(:base, :already_connected) if Connection.where.not(id: id).where(from: from, to: to).or(Connection.where(from: to, to: from)).exists?
-  end
-
-  def same_team
-    errors.add(:base, :different_teams) if from.team != to.team
   end
 
   def notify
