@@ -10,20 +10,19 @@ class ConnectionsController < ApplicationController
   end
 
   def create
+    return redirect_to root_url unless @user
+
     other = User.find_by!(uuid: params[:uuid])
-    if @user
-      connection = @user.connect_to(other)
-      @status_message = if connection.valid?
-                          t('message.connected_with', name: other.nickname)
-                        else
-                          connection.errors.full_messages[0]
-                        end
 
-      @root_url = root_url
+    connection = @user.connect_to(other)
+    @status_message = if connection.valid?
+                        t('message.connected_with', name: other.nickname)
+                      else
+                        connection.errors.full_messages[0]
+                      end
 
-      render 'common/page'
-    else
-      redirect_to root_url
-    end
+    @root_url = root_url
+
+    render 'common/page'
   end
 end
