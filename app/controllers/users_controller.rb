@@ -4,14 +4,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[new show update]
 
   def new
-    if @user
-      redirect_to :root
-    else
-      @register_url = users_path
-      @explanation = t('message.username_explanation')
+    return redirect_to :root if @user
 
-      render 'common/page'
-    end
+    @register_url = users_path
+    @explanation = t('message.username_explanation')
+
+    render 'common/page'
   end
 
   def show
