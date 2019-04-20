@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[new show]
+  before_action :set_user, only: %i[new show update]
 
   def new
     if @user
@@ -16,10 +16,14 @@ class UsersController < ApplicationController
 
   def show
     if @user
-      @qr_code_url = qr_code_url
-      @state_url = state_url(focused_user: @user.id)
+      @urls = {
+        connection: qr_code_url,
+        state: state_url(focused_user: @user.id),
+        update: update_url
+      }
     else
-      @no_user_error = t('message.no_user')
+      @urls = {}
+      @error = t('message.no_user')
     end
 
     render 'common/page'
@@ -33,6 +37,11 @@ class UsersController < ApplicationController
     else
       # TODO
     end
+  end
+
+  def update
+    @user&.update(user_params)
+    redirect_to :root
   end
 
   private
