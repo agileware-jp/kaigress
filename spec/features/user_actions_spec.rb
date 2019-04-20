@@ -57,32 +57,41 @@ end
 
 RSpec.feature 'Connection', type: :feature, js: true do
   describe 'Connection status' do
-    let(:other_user) { create :user, team: User.last.team }
+    let(:other_user) { create :user }
     let(:uuid) { other_user.uuid }
 
-    before do
-      register
-      visit connect_path(uuid: uuid)
-    end
-
-    context 'Connection successful' do
-      it 'shows success message' do
-        expect(page).to have_text 'Connected with'
+    context 'When user is registered' do
+      before do
+        register
+        visit connect_path(uuid: uuid)
       end
 
-      context 'when trying to connect one more time' do
-        it 'shows fail message' do
-          visit connect_path(uuid: uuid)
-          expect(page).to have_text 'You are already connected'
+      context 'Connection successful' do
+        it 'shows success message' do
+          expect(page).to have_text 'Connected with'
+        end
+
+        context 'when trying to connect one more time' do
+          it 'shows fail message' do
+            visit connect_path(uuid: uuid)
+            expect(page).to have_text 'You are already connected'
+          end
+        end
+      end
+
+      context 'Trying to connect to oneself' do
+        let(:uuid) { User.last.uuid }
+
+        it 'shows error message' do
+          expect(page).to have_text 'You cannot connect to yourself'
         end
       end
     end
 
-    context 'Trying to connect to oneself' do
-      let(:uuid) { User.last.uuid }
-
-      it 'shows error message' do
-        expect(page).to have_text 'You cannot connect to yourself'
+    context 'When user is not registered' do
+      it 'shows please register message' do
+        visit connect_path(uuid: uuid)
+        expect(page).to have_text 'You are not participating in Kaigress'
       end
     end
   end

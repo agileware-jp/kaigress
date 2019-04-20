@@ -10,6 +10,8 @@ class ConnectionsController < ApplicationController
   end
 
   def create
+    return redirect_to root_url unless @user
+
     other = User.find_by!(uuid: params[:uuid])
     connection = @user.connect_to(other)
     @status_message = if connection.valid?
