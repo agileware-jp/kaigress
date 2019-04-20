@@ -2,10 +2,13 @@
 
 require 'app/layout/base_document'
 require 'app/components/link_button'
+require 'app/components/button'
 require 'app/components/panel'
 require 'app/components/qr_code'
 
 class UserInfo < BaseDocument
+  class EditButton < Button; end
+
   class Team < Ferro::Component::Base
     def before_create
       @team = option_replace :team
@@ -37,6 +40,7 @@ class UserInfo < BaseDocument
   def content
     if @user
       add_child :user_info, Panel, title: @user[:nickname]
+      user_info.add_to_header :edit, EditButton, content: 'Edit'
       user_info.add_content :team, Team, team: @user[:team]
       user_info.add_content :state_link, StateLink, url: @state_url
 

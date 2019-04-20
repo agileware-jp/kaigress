@@ -52,3 +52,17 @@ a {
 input[type="submit"], input[type="button"] {
   -webkit-appearance: none;
 }
+
+.panel-header > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.panel-header {
+  line-height: 36px;
+}
+
+.edit-button {
+  margin-left: 5px;
+  vertical-align: middle;
+}
