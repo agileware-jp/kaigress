@@ -13,6 +13,7 @@ require 'app/components/metric'
 
 class GameState < BaseDocument
   class Points < Ferro::Component::Base; end;
+  class FarewellMessage < Ferro::Component::Base; end;
 
   TEAMS = %i[red green blue]
 
@@ -89,6 +90,7 @@ class GameState < BaseDocument
 
   def content
     add_child :network_container, Panel, title: 'Status'
+    network_container.add_content :fawawell_message, FarewellMessage, content: 'Thanks to join Kaigress! See you RubyKaigi 2020!' 
     @network = network_container.add_content :network, Network, nodes: nodes, edges: edges, options: NETWORK_OPTIONS
     points = network_container.add_to_header :points, Points
     @point_display = TEAMS.map { |t|
