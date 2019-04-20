@@ -122,18 +122,24 @@ class GameState < BaseDocument
     consumer = ActionCable::Consumer.new
     consumer.create_subscription(channel: 'StateChannel', model_type: 'user') do |user_json|
       user = add_user(user_json)
-      @network.add_node user.as_node
-      @network.add_edge({ from: user.team, to: user.id }.to_n)
+      add_user_to_network(user)
       reset_view if @reset_on_update.checked?
     end
     consumer.create_subscription(channel: 'StateChannel', model_type: 'connection') do |connection_json|
       connection = add_connection(connection_json)
-      handle_new_connection(connection)
+      add_connection_to_network(connection)
       reset_view if @reset_on_update.checked?
     end
   end
 
-  def handle_new_connection(connection)
+  def add_user_to_network(user)
+    @network.instance_eval {
+      add_node user.as_node
+      add_edge({ from: user.team, to: user.id }.to_n)
+    }
+  end
+
+  def add_connection_to_network(connection)
     @network.instance_eval {
       add_edge connection.as_edge
       update_node(connection.from.id, size: connection.from.node_size)
