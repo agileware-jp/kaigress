@@ -9,4 +9,8 @@ class Team
   def self.member_counts
     User.teams.keys.each_with_object({}) { |t, result| result[t] = User.send(t).count }.symbolize_keys
   end
+
+  def hoge
+    puts :test
+  end
 end
