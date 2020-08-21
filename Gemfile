@@ -63,6 +63,7 @@ group :test do
     gem 'webdrivers'
   end
   gem 'rspec_junit_formatter'
+  gem 'coveralls', require: false
 end
 
 group :development, :test do
